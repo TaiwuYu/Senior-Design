@@ -318,10 +318,10 @@ int Gchemical::Miu_P246(float* eta[],float* d_eta[],int *gs, float *conc1,float 
 				{
 					if(g1!=gs[indx2])	
 						continue;
-					x_Ni=conc1[indx2];
-					x_Pt=conc2[indx2];
-			//		x_Ni=0.503;
-			//		x_Pt=0.20;
+		//			x_Ni=conc1[indx2];
+		//			x_Pt=conc2[indx2];
+					x_Ni=0.503;
+					x_Pt=0.20;
 					if(x_Ni<0.5)
 					x_Ni=0.5;
                
@@ -483,10 +483,11 @@ int Gchemical::Miu_PREP(float* eta[],float* d_eta[],int *gs)
 							dg+=a[7]*(2*e1-6*e2+4*e3);
 
 //							G_B2=a[1]+a[2]*x_Ni+a[3]*x_Pt+a[4]*x_Ni*x_Ni+a[5]*x_Ni*x_Pt+a[6]*x_Pt*x_Pt;
-					                G_B2=a[1]*(2.035*(x_Ni-0.5125)*(x_Ni-0.5125)+0.246*(x_Pt-0.20)*(x_Pt-0.20)-0.0019);
+					               // G_B2=a[1]*(2.035*(x_Ni-0.5125)*(x_Ni-0.5125)+0.246*(x_Pt-0.20)*(x_Pt-0.20)-0.0019);
+					                G_B2=a[1]*(2.035*(x_Ni-0.5025)*(x_Ni-0.5025)+1.23/2*(x_Pt-0.26)*(x_Pt-0.26)-0.0019);
 //					                G_B2=a[1]*(2.035*(x_Ni-0.5125)*(x_Ni-0.5125)-0.0019);
 //							G_p=a[0]*((x_Ni-x1)*(x_Ni-x1)+(x_Pt-x2)*(x_Pt-x2)+ic*(x_Ni-x1)*(x_Pt-x2))+G_p0;
-							G_p=a[0]*(2.035*(x_Ni-0.5425)*(x_Ni-0.5425)+0.246*(x_Pt-0.27)*(x_Pt-0.27)-0.0028);
+							G_p=a[0]*(2.035*(x_Ni-0.5325)*(x_Ni-0.5325)+1.23/2*(x_Pt-0.33)*(x_Pt-0.33)-0.008);
 	//						G_p=a[0]*(2.035*(x_Ni-0.5425)*(x_Ni-0.5425)-0.0023);
 //							G_B2=a[0]*(x_Ni-0.285)*(x_Ni-0.285);
 //							G_p=a[0]*(x_Ni-0.375)*(x_Ni-0.375);
@@ -494,15 +495,17 @@ int Gchemical::Miu_PREP(float* eta[],float* d_eta[],int *gs)
 //							if(G_B2<0 || G_p<0)
 //								cout<<"Need larger G!"<<endl;
 
+							//d_eta[v1][indx2]+=-dh*G_B2+dh*G_p+dg+3.7466E-4*a[3]*e1;
 							d_eta[v1][indx2]+=-dh*G_B2+dh*G_p+dg;
 							break;
 						case 6:	// x_Ni
 //							d_eta[v1][indx2]+=(1-hs)*(a[2]+2*a[4]*x_Ni+a[5]*x_Pt)+hs*(2*a[0]*(x_Ni-x1)+a[0]*ic*(x_Pt-x2));
-							d_eta[v1][indx2]+=(1-hs)*(2*a[1]*2.035*(x_Ni-0.5125))+hs*2.035*(2*a[0]*(x_Ni-0.5425));
+						//	d_eta[v1][indx2]+=(1-hs)*(2*a[1]*2.035*(x_Ni-0.5125))+hs*2.035*(2*a[0]*(x_Ni-0.5425));
+							d_eta[v1][indx2]+=(1-hs)*(2*a[1]*2.035*(x_Ni-0.5025))+hs*2.035*(2*a[0]*(x_Ni-0.5325));
 							break;
 						case 7: // x_Hf
 //							d_eta[v1][indx2]+=(1-hs)*(a[3]+a[5]*x_Ni+2*a[6]*x_Pt)+hs*(2*a[0]*(x_Pt-x2)+a[0]*ic*(x_Ni-x1));
-							d_eta[v1][indx2]+=(1-hs)*(2*a[1]*0.246*(x_Pt-0.20))+hs*(2*a[0]*0.246*(x_Pt-0.27));
+							d_eta[v1][indx2]+=(1-hs)*(2*a[1]*1.23/2*(x_Pt-0.26))+hs*(2*a[0]*1.23/2*(x_Pt-0.33));
 							break;
 						default:
 							cout<<"Invalid variant ID!_Gchemical"<<endl;

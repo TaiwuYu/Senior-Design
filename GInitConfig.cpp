@@ -181,11 +181,11 @@ int GInitConfig::Init_HOMO(float *eta[])	// Ni30Pt20Ti50
 							eta[indx1][indx2]=0;
 							break;
 						case 6:
-							eta[indx1][indx2]=0.51;
+							eta[indx1][indx2]=0.0;
 						//	eta[indx1][indx2]=0.0;
 							break;
 						case 7:
-							eta[indx1][indx2]=0.20;
+							eta[indx1][indx2]=0.0;
 							break;
 						case 8:
 						case 9:
@@ -1364,18 +1364,18 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 	//srand(0);
 
 	Init_HOMO(eta);
-/*
+
 		for(i=0;i<nx;i++)
 			for(j=0;j<ny;j++)
 				for(k=0;k<nz/4;k++)		
 		{
 					indx2=index2(i,j,k);
 							eta[0][indx2]=1;
-							eta[6][indx2]=0.53;//x_Ni
-						eta[7][indx2]=0.27;//x-Hf
+							eta[6][indx2]=0.525;//x_Ni
+						eta[7][indx2]=0.255;//x-Hf
 
 }
-*/
+
 //				}
 //	For 2D strain field of H-phase
 /*
@@ -1398,17 +1398,17 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 /*
 	for(ip=0;ip<(int)a[0];ip++)
 	{
-		iv=rand()%6;
-	//	iv=5;
+	//	iv=rand()%6;
+		iv=0;
 
-		ix=rand()%nx;
-		iy=rand()%ny;
-		iz=rand()%nz;
+//		ix=rand()%nx;
+//		iy=rand()%ny;
+//		iz=rand()%nz;
 		
 
-          //      ix=nx/2;
-	//	iy=ny/2;
-	//	iz=nz/2;
+                ix=nx/2;
+		iy=ny/2;
+		iz=nz/2;
 		
 		for(i=0;i<nx;i++)
 			for(j=0;j<ny;j++)
@@ -1430,8 +1430,8 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 						if(tp1*tp1/a[2]/a[2]+tp2*tp2/a[1]/a[1]+tp3*tp3/a[1]/a[1]<=1.0/4.0)
 						{
 							eta[iv][indx2]=1;
-							eta[6][indx2]=0.54;//x_Ni
-						eta[7][indx2]=0.27;//x-Hf
+							eta[6][indx2]=0.53;//x_Ni
+						eta[7][indx2]=0.263;//x-Hf
 						}
 						break;
 					case 2:
@@ -1439,8 +1439,8 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 						if(tp1*tp1/a[1]/a[1]+tp2*tp2/a[2]/a[2]+tp3*tp3/a[1]/a[1]<=1.0/4.0)
 						{
 							eta[iv][indx2]=1;
-							eta[6][indx2]=0.54;//x_Ni
-							eta[7][indx2]=0.27;//x_Hf
+							eta[6][indx2]=0.53;//x_Ni
+							eta[7][indx2]=0.263;//x_Hf
 						}
 						break;
 					case 4:
@@ -1448,8 +1448,8 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 						if(tp1*tp1/a[1]/a[1]+tp2*tp2/a[1]/a[1]+tp3*tp3/a[2]/a[2]<=1.0/4.0)
 						{
 							eta[iv][indx2]=1;
-							eta[6][indx2]=0.54;//x_Ni
-							eta[7][indx2]=0.27;//x_Hf
+							eta[6][indx2]=0.53;//x_Ni
+							eta[7][indx2]=0.263;//x_Hf
 						}
 						break;
 					default:
@@ -1460,7 +1460,7 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 }
 */
 //	For long time particle with {311} habit
-
+/*
 	cout<<"Generation of H-phase particles with {311} habit plane."<<endl;
 //	ix_old=0;
 //	iy_old=0;
@@ -1473,13 +1473,13 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 //		ih=rand()%2;
 //		ih=0;
 
-		ix=rand()%nx;
-		iy=rand()%ny;
-		iz=rand()%nz;
+//		ix=rand()%nx;
+//		iy=rand()%ny;
+//		iz=rand()%nz;
 					//if((ix-ix_old)*(ix-ix_old)+(iy-iy_old)*(iy-iy_old)+(iz-iz_old)*(iz-iz_old)<=a[1]*a[1])
 					//	continue;
 
-//		ix=iy=iz=nx/2;
+		ix=iy=iz=nx/2;
 
 		for(i=0;i<nx;i++)
 			for(j=0;j<ny;j++)
@@ -1634,7 +1634,7 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 				   }//end of space choosing
 
 				   }//end of particle number
-
+*/
 return 0;
 }
  
@@ -1646,7 +1646,8 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Plate_v1.vtk");
 //	sprintf(filename,"Part_V1.vtk");
 	//sprintf(filename,"Hphase_p_v1_00.vtk");
-	sprintf(filename,"Hphase_two1_v1_06.vtk");
+//	sprintf(filename,"Hphase_two2_v1_05.vtk");
+	sprintf(filename,"Hphase_single3_v1_12.vtk");
 //	sprintf(filename,"Hphase_1d_v1_49.vtk");
 //	sprintf(filename,"Hphase_p4_v1_02.vtk");
 //	sprintf(filename,"%s",input_eta);
@@ -1655,14 +1656,14 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //        sprintf(filename,"Part_V2.vtk");
 	//sprintf(filename,"Hphase_p_v2_00.vtk");
 	//sprintf(filename,"Hphase_small2.vtk");
-	sprintf(filename,"Hphase_two1_v2_06.vtk");
+//	sprintf(filename,"Hphase_two2_v2_05.vtk");
 //	sprintf(filename,"Hphase_large2_v2_10.vtk");
 //	sprintf(filename,"Hphase_1d_v2_49.vtk");
 //	sprintf(filename,"Plate_v2.vtk");
 //	sprintf(filename,"Hphase_p_v2_09.vtk");
 //	sprintf(filename,"input_v2.vtk");
-	init_from_file(&eta[5][0],filename);
-	sprintf(filename,"Hphase_two1_v3_06.vtk");
+//	init_from_file(&eta[5][0],filename);
+//	sprintf(filename,"Hphase_two2_v3_05.vtk");
 //	sprintf(filename,"Hphase_large2_v3_10.vtk");
 	//sprintf(filename,"Hphase_p_v3_00.vtk");
 //	sprintf(filename,"Hphase_1d_v3_49.vtk");
@@ -1672,8 +1673,8 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Plate_v3.vtk");
 	//sprintf(filename,"hph_v3_01.vtk");
 //	sprintf(filename,"input_v3.vtk");
-	init_from_file(&eta[6][0],filename);
-	sprintf(filename,"Hphase_two1_v4_06.vtk");
+//	init_from_file(&eta[6][0],filename);
+//	sprintf(filename,"Hphase_two2_v4_05.vtk");
 //	sprintf(filename,"Hphase_large2_v4_10.vtk");
 //	sprintf(filename,"Hphase_1d_v4_49.vtk");
 //	sprintf(filename,"Hphase_small4.vtk");
@@ -1682,8 +1683,8 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Part_V4.vtk");
 //	sprintf(filename,"Hphase_p4_v4_02.vtk");
 //	sprintf(filename,"input_v4.vtk");
-	init_from_file(&eta[7][0],filename);
-	sprintf(filename,"Hphase_two1_v5_06.vtk");
+//	init_from_file(&eta[7][0],filename);
+//	sprintf(filename,"Hphase_two2_v5_05.vtk");
 //	sprintf(filename,"Hphase_large2_v5_10.vtk");
 //	sprintf(filename,"Hphase_1d_v5_49.vtk");
 //	sprintf(filename,"Hphase_small5.vtk");
@@ -1692,9 +1693,9 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Part_V5.vtk");
 //	sprintf(filename,"Plate_v5.vtk");
 //	sprintf(filename,"input_v5.vtk");
-	init_from_file(&eta[8][0],filename);
+//	init_from_file(&eta[8][0],filename);
 	//sprintf(filename,"Hphase_small6.vtk");
-	sprintf(filename,"Hphase_two1_v2_06.vtk");
+//	sprintf(filename,"Hphase_two2_v2_05.vtk");
 //	sprintf(filename,"Hphase_large2_v6_10.vtk");
 	//sprintf(filename,"Hphase_1d_v6_49.vtk");
 //	sprintf(filename,"Hphase_p_v6_00.vtk");
@@ -1702,12 +1703,14 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 	//sprintf(filename,"Hphase_p4_v6_02.vtk");
 //	sprintf(filename,"Part_V6.vtk");
 //	sprintf(filename,"input_v6.vtk");
-	init_from_file(&eta[9][0],filename);
-	sprintf(filename,"Ni_conc1_06.vtk");
+//	init_from_file(&eta[9][0],filename);
+//	sprintf(filename,"Ni_conc2_05.vtk");
+	sprintf(filename,"Hphase_Ni3.vtk");
 //	sprintf(filename,"Hphase_large2_Ni_10.vtk");
 //	//sprintf(filename,"Hphase_1d_Ni_49.vtk");
 	init_from_file(&conc1[0],filename);
-	sprintf(filename,"Hf_conc1_06.vtk");
+	sprintf(filename,"Hphase_Hf3.vtk");
+//	sprintf(filename,"Hf_conc2_05.vtk");
 //	sprintf(filename,"Hphase_large2_Hf_10.vtk");
 	init_from_file(&conc2[0],filename);
  
