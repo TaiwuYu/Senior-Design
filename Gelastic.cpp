@@ -1517,8 +1517,8 @@ int Gelastic::Calc_Bpq()
 
 				(Bpq[indx11])[indx2]=0;
 
-				if(v1==10 || v2==10 ||v1==11||v2==11)	// Concentration Field
-					continue;
+//				if(v1==10 || v2==10 ||v1==11||v2==11)	// Concentration Field
+//					continue;
 
 				for(ii=0;ii<3;ii++)
 				for(jj=0;jj<3;jj++)
@@ -1568,7 +1568,8 @@ int Gelastic::Calc_Bpq()
 			}
 		}
 	}
-   cd=1;
+   cd=0;
+	float Bpq_min=10000,i_min=0,j_min=0,k_min=0;
 	if(cd==1)
 	{
 		for(g1=0;g1<ng;g1++)
@@ -1577,6 +1578,7 @@ int Gelastic::Calc_Bpq()
 	//				if(v1>3)	// Concentration Field
 	//					continue;
 			indx11=index11(g1,v1,g1,v1);
+	//		indx11=index11(0,0,0,0);
 			
 			Bpp_ave=0;
 			for(i=0;i<nx;i++)
@@ -1596,15 +1598,39 @@ int Gelastic::Calc_Bpq()
 				Bpq[indx11][indx2]-=Bpp_ave;
 			}
 		}
+//	cout<<endl<<"Average Bpq is:"<<Bpp_ave<<endl;
 	}
 
-//	Output Bpq for test				
+//	Output Bpq for test			
+	if(cd==2)
+	{
+		for(g1=0;g1<ng;g1++)
+		for(v1=0;v1<nv;v1++)
+		{
+			indx11=index11(0,0,0,0);
+			for(i=0;i<nx;i++)
+			for(j=0;j<ny;j++)
+			for(k=0;k<nz;k++)
+			{
+				if(Bpq[indx11][indx2]<=Bpq_min)
+				{
+					Bpq_min=Bpq[indx11][indx2];
+				}
+                       }
+			for(i=0;i<nx;i++)
+			for(j=0;j<ny;j++)
+			for(k=0;k<nz;k++)
+			{
+				indx2=index2(i,j,k);
+				Bpq[indx11][indx2]-=Bpq_min;
+			}
+       }
+       }
 	
-	ofstream fout("Bpq.vtk",ios::out);
+	ofstream fout("Bpq_minus.vtk",ios::out);
 	Output_VTK_header(&fout,nx,ny,nz);
 							
 	indx11=index11(0,0,0,0);
-	float Bpq_min=10000,i_min=0,j_min=0,k_min=0;
 
 	for(k=-nz/2;k<nz/2;k++) // ignore if for 2D
 		for(j=-ny/2;j<ny/2;j++)

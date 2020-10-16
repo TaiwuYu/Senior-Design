@@ -181,11 +181,11 @@ int GInitConfig::Init_HOMO(float *eta[])	// Ni30Pt20Ti50
 							eta[indx1][indx2]=0;
 							break;
 						case 6:
-							eta[indx1][indx2]=0.0;
+							eta[indx1][indx2]=0.51;
 						//	eta[indx1][indx2]=0.0;
 							break;
 						case 7:
-							eta[indx1][indx2]=0.0;
+							eta[indx1][indx2]=0.2;
 							break;
 						case 8:
 						case 9:

@@ -149,7 +149,7 @@ int Gmt::Init_Space()
 	int g1,v1;
 	int mm;
 	long int indx1,nxyz=nx*ny*nz;
-        
+        char dirname_output[]="output_files"; 
         //initialize concentration
 	conc1=new float[nxyz];
 	assert(conc1!=NULL);
@@ -200,6 +200,7 @@ int Gmt::Init_Space()
 		g[mm]=new float[nxyz];
 		assert(g[mm]!=NULL);
 	}
+	outdir=&dirname_output[0];
 
 	return 0;
 }
@@ -873,15 +874,15 @@ int Gmt::Output_eta(int out)
 	sprintf(f3,"ther_c1_T7_v4_%02d.vtk",num);
 */
 //
-	sprintf(f0,"Hphase_rand2_v1_%02d.vtk",num);
-	sprintf(f1,"Hphase_rand2_v2_%02d.vtk",num);
-	sprintf(f2,"Hphase_rand2_v3_%02d.vtk",num);
-	sprintf(f3,"Hphase_rand2_v4_%02d.vtk",num);
-	sprintf(f4,"Hphase_rand2_v5_%02d.vtk",num);
-	sprintf(f5,"Hphase_rand2_v6_%02d.vtk",num);
+	sprintf(f0,"eta_v1_%02d.vtk",num);
+	sprintf(f1,"eta_v2_%02d.vtk",num);
+	sprintf(f2,"eta_v3_%02d.vtk",num);
+	sprintf(f3,"eta_v4_%02d.vtk",num);
+	sprintf(f4,"eta_v5_%02d.vtk",num);
+	sprintf(f5,"eta_v6_%02d.vtk",num);
 //
-        sprintf(f6,"Ni_rand2_%02d.vtk",num);
-        sprintf(f7,"Hf_rand2_%02d.vtk",num);
+        sprintf(f6,"Ni_%02d.vtk",num);
+        sprintf(f7,"Hf_%02d.vtk",num);
 //	sprintf(f7,"Hphase_two3_Hf_%02d.vtk",num);
 	
 /*	sprintf(f8,"M_pure_v9_%02d.vtk",num);
