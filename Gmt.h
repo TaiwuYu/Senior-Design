@@ -133,7 +133,7 @@ public:
 	float init_a[3]; // init parameters
 	char input_eta[255]; // eta loading file
 	char *input_gs; // gs loading file
-
+        char *outdir=NULL;
 };
 
 #endif
