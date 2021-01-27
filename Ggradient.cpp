@@ -255,18 +255,18 @@ int Ggradient::Miu_ISO_P7(float* eta[],float* d_eta[],int *gs)
 						zm=(eta[indx1])[indx2];
 						
 						indx2=index2(i,j,k);
-                                                if(v1>9)
+                                                if(v1>11)
 						continue;
 				//		if(v1>11)
 				//			d_eta[v1][indx2]-=0.001*kappa[0]*(xp+xm+yp+ym+zp+zm-6*temp);
-				if(v1==6)
-							d_eta[v1][indx2]-=10*kappa[0]*(xp+xm+yp+ym+zp+zm-6*temp);
-					else if(v1==7)
-							d_eta[v1][indx2]-=5*kappa[0]*(xp+xm+yp+ym+zp+zm-6*temp);
-                                       else{
+		//		if(v1==6)
+		//					d_eta[v1][indx2]-=10*kappa[0]*(xp+xm+yp+ym+zp+zm-6*temp);
+		//			else if(v1==7)
+		//					d_eta[v1][indx2]-=5*kappa[0]*(xp+xm+yp+ym+zp+zm-6*temp);
+                  //                     else{
 				       
 							d_eta[v1][indx2]-=kappa[0]*(xp+xm+yp+ym+zp+zm-6*temp);
-					}
+		//			}
 					}
 				}
 			}

@@ -358,7 +358,7 @@ int Gmt::Evolution()
                               //    if (v1==0||v1==3||v1==4||v1==5||v1==6||v1==7||v1>=10)
                        //    if (v1>3)
                          //             continue;
-				    
+		/*		    
 				     if (eta_new[4][indx2]>0.5)
                                       continue;
 			 
@@ -372,7 +372,7 @@ int Gmt::Evolution()
                                       continue;
 				     if (eta_new[9][indx2]>0.5)
                                       continue;
-	
+	*/
 			/*  
 					
 							if(v1>3 && v1<6) // Concentration Field
@@ -454,15 +454,16 @@ int Gmt::Evolution_RK2()
 	long int indx1,indx2,xm,xp,ym,yp,zm,zp;
 	float tp;
 	float L=10,M=1;
-	
+	int out=1;
 	if(output_stress==1)
 	{
-//		float s_tp[3][3]={{(float)0.01,0,0},{0,(float)0,0},{0,0,(float)0.01}};		
+		float s_tp[3][3]={{(float)1.0,0,0},{0,(float)0,0},{0,0,(float)0.0}};		
+ 	elas.AppliedStress(s_tp);
 //		elas.AppliedStrain(s_tp);
 
 		elas.Output_Stress(eta_old,gs);
 		cout<<"Output Stress Field!"<<endl;
-		elas.Output_TranStrain(eta_old,gs);
+		elas.Output_Strain(eta_old,gs,out);
 
 		return 1;
 	}
@@ -475,7 +476,7 @@ int Gmt::Evolution_RK2()
 		return 2;
 	}
 
-//        float **temp,s_tp[3][3]={{(float)1.0,0,0},{0,0.0,0},{0,0,0}};
+//        float **temp,s_tp[3][3]={{(float)1.0,0.0,0},{0.0,0.0,0},{0,0,0}};
 	float **temp,e_tp[3][3]={{(float)0.0,0,0},{0,1,0},{0,0,0}};
 	int t=0;
 	
@@ -529,7 +530,7 @@ int Gmt::Evolution_RK2()
                                       continue;
 				     if (eta_new[9][indx2]>0.5)
                                       continue;
-                       
+                      
 				  //   if (eta_new[10][indx2]>0.515)
                                   //    continue;
 				  //   if (eta_new[11][indx2]>0.215)
@@ -657,9 +658,18 @@ int Gmt::Evolution_RK2()
 		if(t%(total_step/output_step)==0)
 		{
 	//	       elas.UpdateStrain(e_tp);
-//		      elas.UpdateStress(s_tp);
-		   //    chem.UpdateT(chem_a);
+      		    //  elas.UpdateStress(s_tp);
+		  //     chem.UpdateT(chem_a);
+		  if (t<=total_step/2)
+		      { chem.UpdateT(chem_a);}
+		       else
+		      { 
+		       chem.UpdateT2(chem_a);
+		       }
+
 			Output_eta(output_step);
+	//	elas.Output_Stress(eta_old,gs);
+	//	        elas.Output_Strain(eta_old,gs,output_step);
 			cout<<"t = "<<t<<endl;
 		}
 
@@ -696,7 +706,7 @@ int Gmt::Evolution_Spectrum()
 		elas.Output_Stress(eta_old,gs);
 		cout<<"Output Stress Field!"<<endl;
 		elas.Output_TranStrain(eta_old,gs);
-		elas.Output_Strain(eta_old,gs);
+	//	elas.Output_Strain(eta_old,gs);
 
 		return 1;
 	}
@@ -762,7 +772,7 @@ int Gmt::Evolution_Spectrum()
 								if(v1==6)
 								{
 									M=M1;
-									kap=10*kappa[0];
+									kap=5*kappa[0];
 								}
 								else
 								{
@@ -868,21 +878,47 @@ int Gmt::Output_eta(int out)
 //	sprintf(f2,"tetra_v3_3f_%02d.vtk",num);
 
 /*
-	sprintf(f0,"ther_c1_T7_v1_%02d.vtk",num);
-	sprintf(f1,"ther_c1_T7_v2_%02d.vtk",num);
-	sprintf(f2,"ther_c1_T7_v3_%02d.vtk",num);
-	sprintf(f3,"ther_c1_T7_v4_%02d.vtk",num);
+	sprintf(f0,"ther_c1_T7r_sc_v1_%02d.vtk",num);
+	sprintf(f1,"ther_c1_T7r_sc_v2_%02d.vtk",num);
+	sprintf(f2,"ther_c1_T7r_sc_v3_%02d.vtk",num);
+	sprintf(f3,"ther_c1_T7r_sc_v4_%02d.vtk",num);
+*/
+
+        sprintf(f0,"MT_T130_d4_v1_%02d.vtk",num);
+	sprintf(f1,"MT_T130_d4_v2_%02d.vtk",num);
+	sprintf(f2,"MT_T130_d4_v3_%02d.vtk",num);
+	sprintf(f3,"MT_T130_d4_v4_%02d.vtk",num);
+
+/*
+        sprintf(f0,"T150_e12s_v1_%02d.vtk",num);
+	sprintf(f1,"T150_e12s_v2_%02d.vtk",num);
+	sprintf(f2,"T150_e12s_v3_%02d.vtk",num);
+	sprintf(f3,"T150_e12s_v4_%02d.vtk",num);
+*/
+/*
+
+	sprintf(f4,"T150_e12s_v5_%02d.vtk",num);
+	sprintf(f5,"T150_e12s_v6_%02d.vtk",num);
+	sprintf(f6,"T150_e12s_v7_%02d.vtk",num);
+	sprintf(f7,"T150_e12s_v8_%02d.vtk",num);
+	sprintf(f8,"T150_e12s_v9_%02d.vtk",num);
+	sprintf(f9,"T150_e12s_v10_%02d.vtk",num);
+	sprintf(f10,"T150_e12s_v11_%02d.vtk",num);
+	sprintf(f11,"T150_e12s_v12_%02d.vtk",num);
 */
 //
+/*
 	sprintf(f0,"eta_v1_%02d.vtk",num);
 	sprintf(f1,"eta_v2_%02d.vtk",num);
 	sprintf(f2,"eta_v3_%02d.vtk",num);
 	sprintf(f3,"eta_v4_%02d.vtk",num);
-	sprintf(f4,"eta_v5_%02d.vtk",num);
-	sprintf(f5,"eta_v6_%02d.vtk",num);
+*/
+/*	sprintf(f4,"eta_v5_rand5_%02d.vtk",num);
+	sprintf(f5,"eta_v6_rand5_%02d.vtk",num);
 //
-        sprintf(f6,"Ni_%02d.vtk",num);
-        sprintf(f7,"Hf_%02d.vtk",num);
+        sprintf(f6,"Ni_rand5_%02d.vtk",num);
+        sprintf(f7,"Hf_rand5_%02d.vtk",num);
+*/
 //	sprintf(f7,"Hphase_two3_Hf_%02d.vtk",num);
 	
 /*	sprintf(f8,"M_pure_v9_%02d.vtk",num);
@@ -905,13 +941,23 @@ int Gmt::Output_eta(int out)
 	ofstream v1_out(f1,ios::out);
 	ofstream v2_out(f2,ios::out);
 	ofstream v3_out(f3,ios::out);
- 
+/*	ofstream v4_out(f4,ios::out);
+	ofstream v5_out(f5,ios::out);
+	ofstream v6_out(f6,ios::out);
+	ofstream v7_out(f7,ios::out);
+
+	ofstream v8_out(f8,ios::out);
+	ofstream v9_out(f9,ios::out);
+	ofstream v10_out(f10,ios::out);
+	ofstream v11_out(f11,ios::out);
+*/
+/* 
 	ofstream v4_out(f4,ios::out);
 	ofstream v5_out(f5,ios::out);
 
         ofstream v6_out(f6,ios::out);
 	ofstream v7_out(f7,ios::out);
-
+*/
 /*
 	ofstream v8_out(f8,ios::out);
 	ofstream v9_out(f9,ios::out);
@@ -928,14 +974,13 @@ int Gmt::Output_eta(int out)
 	Output_VTK_header(&v1_out,nx,ny,nz);
 	Output_VTK_header(&v2_out,nx,ny,nz);
 	Output_VTK_header(&v3_out,nx,ny,nz);
-
-	Output_VTK_header(&v4_out,nx,ny,nz);	
+/*	Output_VTK_header(&v4_out,nx,ny,nz);	
 	Output_VTK_header(&v5_out,nx,ny,nz);
 
         Output_VTK_header(&v6_out,nx,ny,nz);
 	Output_VTK_header(&v7_out,nx,ny,nz);
 
-/*
+
 	Output_VTK_header(&v8_out,nx,ny,nz);
 	Output_VTK_header(&v9_out,nx,ny,nz);
 	Output_VTK_header(&v10_out,nx,ny,nz);
@@ -946,7 +991,7 @@ int Gmt::Output_eta(int out)
 	for(g1=0;g1<ng;g1++)
 		for(v1=0;v1<nv;v1++)
 		{
-		if(v1>3)
+		if(v1>11)
 		continue;
 			indx1=index1(g1,v1);
 			for(k=0;k<nz;k++)
@@ -961,10 +1006,12 @@ int Gmt::Output_eta(int out)
 						min=(eta_old[indx1])[indx2]<min?(eta_old[indx1])[indx2]:min;
 					}
 		}
+
 	for(k=0;k<nz;k++)
 		for(j=0;j<ny;j++)
 			for(i=0;i<nx;i++)
 			{
+                        
 				indx2=index2(i,j,k);
 		//		vID=-1;
 		//		vmax=0;
@@ -1017,20 +1064,21 @@ int Gmt::Output_eta(int out)
 				v1_out<<eta_old[index1(0,1)][indx2]<<endl;
 				v2_out<<eta_old[index1(0,2)][indx2]<<endl;
 				v3_out<<eta_old[index1(0,3)][indx2]<<endl;
-      		
+ /*    		
 				v4_out<<eta_old[index1(0,4)][indx2]<<endl;
 				v5_out<<eta_old[index1(0,5)][indx2]<<endl;
 
                                 v6_out<<eta_old[index1(0,6)][indx2]<<endl;//x_Ni
 //                                v6_out<<conc1[indx2]<<endl;//x_Ni
 				v7_out<<eta_old[index1(0,7)][indx2]<<endl;//x_Hf
+
 				
-/*		
+		
 				v8_out<<eta_old[index1(0,8)][indx2]<<endl;
 				v9_out<<eta_old[index1(0,9)][indx2]<<endl;
 				v10_out<<eta_old[index1(0,10)][indx2]<<endl;
 				v11_out<<eta_old[index1(0,11)][indx2]<<endl;
-                            */
+   */                        
 //                          ft_out<<eta_total[indx2]<<endl;
 
 			}//end of space loop`
@@ -1064,7 +1112,7 @@ int Gmt::Output_eta(int out)
 	v2_out.close();
 	v3_out.flush();
 	v3_out.close();
-	v4_out.flush();
+/*	v4_out.flush();
 	v4_out.close();
 
 	v5_out.flush();
@@ -1073,9 +1121,8 @@ int Gmt::Output_eta(int out)
 	v6_out.flush();
 	v6_out.close();
 	v7_out.flush();
-	v7_out.close();
+	v7_out.close();	
 
-/*	
 	v8_out.flush();
 	v8_out.close();
 	v9_out.flush();
@@ -1249,8 +1296,8 @@ int Gmt::LangevinNoise(int time)
 										if(v1==6||v1==7)
 									//	if(v1==6)
 										{
-											eta_old[index1(0,6)][indx2]+=0.004*tp;
-											eta_old[index1(0,7)][indx2]+=0.004*tp;
+											eta_old[index1(0,6)][indx2]+=0.04*tp;
+											eta_old[index1(0,7)][indx2]+=0.04*tp;
 											}
 											else{
 											eta_old[indx1][indx2]+=tp;
@@ -1292,7 +1339,7 @@ int Gmt::CutLargeEta()
 					for(v1=0;v1<nv;v1++)
 					{
 						indx1=index1(g1,v1);
-                                   
+         /*                          
 						if(v1==6)
 						{
 						if(eta_old[indx1][indx2]<0.498)
@@ -1308,7 +1355,7 @@ int Gmt::CutLargeEta()
 						
 					//		continue;
                                                 else
-						{
+			*/			{
 						if(eta_old[indx1][indx2]<0)
 							eta_old[indx1][indx2]=0;
 						if(eta_old[indx1][indx2]>1)

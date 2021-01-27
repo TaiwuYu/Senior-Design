@@ -33,7 +33,7 @@ public:
 	int Init_HOMO(float *eta[]);
 	int Init_SINGLE(float *eta[],float a[],int *gs);
 	int Init_TWIN_13(float *eta[],float a[],int *gs);
-	int Init_USER(float *eta[],float a[],int *gs);
+	int Init_USER(float *eta[],float a[],int *gs,float *conc1,float *conc2);
 	int Init_LOAD(float *eta[],char eta_file[]);
 	int Init_GRAIN_3(float *eta[]);
 	int Init_GRAIN_4(float *eta[]);

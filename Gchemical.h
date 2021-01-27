@@ -38,6 +38,7 @@ public:
 	int Miu_PREP(float* eta[],float* d_eta[],int *gs);
 	int Output_VTK_header(ofstream*,int,int,int);
         int UpdateT(float *aa); 	
+        int UpdateT2(float *aa); 	
 	inline long int index1(int g1,int v1){	return g1*nv+v1;	}
 	inline long int index2(int i,int j,int k){	return (i*ny+j)*nz+k;	}
 

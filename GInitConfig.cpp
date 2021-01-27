@@ -60,7 +60,7 @@ int g1,v1,i,j,k;
 		Init_TWIN_13(eta,a,gs);
 		break;
 	case USER:
-		Init_USER(eta,a,gs);
+		Init_USER(eta,a,gs,conc1,conc2);
 		break;
 	case LOAD:
 		Init_LOAD(eta,eta_file);
@@ -180,12 +180,13 @@ int GInitConfig::Init_HOMO(float *eta[])	// Ni30Pt20Ti50
 						case 5:
 							eta[indx1][indx2]=0;
 							break;
-						case 6:
-							eta[indx1][indx2]=0.51;
-						//	eta[indx1][indx2]=0.0;
+						case 6://X_Ni
+					//		eta[indx1][indx2]=0.57;
+							eta[indx1][indx2]=0.0;
 							break;
-						case 7:
-							eta[indx1][indx2]=0.2;
+						case 7://X_Hf
+						//	eta[indx1][indx2]=0.27;
+							eta[indx1][indx2]=0.0;
 							break;
 						case 8:
 						case 9:
@@ -1060,7 +1061,7 @@ int GInitConfig::Init_LAM_123(float *eta[],char eta_file[],float a[],int *gs)
 	return 0;
 }
 
-int GInitConfig::Init_USER(float *eta[],float a[],int *gs)
+int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *conc2)
 {
 	Init_HOMO(eta);
 	char filename[500];
@@ -1078,15 +1079,61 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs)
 //	sprintf(filename,"ther_T02_r_v1_49.vtk");
 //	sprintf(filename,"test_2d_v1_49.vtk");
 	//sprintf(filename,"ther_str_v1_39.vtk");
-	sprintf(filename,"tetra_v1_3_27.vtk");
+	//sprintf(filename,"tetra_v1_3_27.vtk");
 //	sprintf(filename,"test_stress_T04_v1_49.vtk");
 
 //	sprintf(filename,"Small2_r_v1_99.vtk");
 //	sprintf(filename,"ther_1_v1_49.vtk");
 	//sprintf(filename,"test3_v1_99.vtk");
 //	sprintf(filename,"Stress_par_1_v1_27.vtk");
+//	sprintf(filename,"stress_test3_v1_19.vtk");
+
+//	sprintf(filename,"stress_c1_v1_19.vtk");
+	//sprintf(filename,"stress_e4_T190_v1_32.vtk");
+/*	sprintf(filename,"stress_e4c_T200_v1_19.vtk");
+//	sprintf(filename,"stress_test_T180_v1_19.vtk");
+//	sprintf(filename,"eta_v1_rand_18.vtk");
 	init_from_file(&eta[0][0],filename);
-//	sprintf(filename,"Mplate_v2.vtk");
+//	sprintf(filename,"T160_e4r_v2_19.vtk");
+//	sprintf(filename,"stress_c1_v2_19.vtk");
+//	sprintf(filename,"stress_t_T180_v2_19.vtk");
+//	sprintf(filename,"stress_e4_T190_v2_32.vtk");
+//	sprintf(filename,"stress_test_T180_v2_19.vtk");
+	sprintf(filename,"stress_e4c_T200_v2_19.vtk");
+	init_from_file(&eta[1][0],filename);
+//	sprintf(filename,"T160_e4r_v3_19.vtk");
+//	sprintf(filename,"stress_c1_v3_19.vtk");
+//	sprintf(filename,"stress_t_T180_v3_19.vtk");
+//	sprintf(filename,"stress_e4_T190_v3_32.vtk");
+//	sprintf(filename,"stress_test_T180_v3_19.vtk");
+	sprintf(filename,"stress_e4c_T200_v3_19.vtk");
+	init_from_file(&eta[2][0],filename);
+//	sprintf(filename,"T160_e4r_v4_19.vtk");
+//	sprintf(filename,"stress_c1_v4_19.vtk");
+//	sprintf(filename,"stress_t_T180_v4_19.vtk");
+//	sprintf(filename,"stress_e4_T190_v4_32.vtk");
+//	sprintf(filename,"stress_test_T180_v4_19.vtk");
+	sprintf(filename,"stress_e4c_T200_v4_19.vtk");
+	init_from_file(&eta[3][0],filename);
+*/
+/*	sprintf(filename,"T160_c1_v5_08.vtk");
+	init_from_file(&eta[4][0],filename);
+	sprintf(filename,"T160_c1_v6_08.vtk");
+	init_from_file(&eta[5][0],filename);
+	sprintf(filename,"T160_c1_v7_08.vtk");
+	init_from_file(&eta[6][0],filename);
+	sprintf(filename,"T160_c1_v8_08.vtk");
+	init_from_file(&eta[7][0],filename);
+	sprintf(filename,"T160_c1_v9_08.vtk");
+	init_from_file(&eta[8][0],filename);
+	sprintf(filename,"T160_c1_v10_08.vtk");
+	init_from_file(&eta[9][0],filename);
+	sprintf(filename,"T160_c1_v11_08.vtk");
+	init_from_file(&eta[10][0],filename);
+	sprintf(filename,"T160_c1_v12_08.vtk");
+	init_from_file(&eta[11][0],filename);
+*/
+//sprintf(filename,"Mplate_v2.vtk");
 	//sprintf(filename,"M_p3_2_v2_49.vtk");
 //	sprintf(filename,"V2_input.vtk");
 //	sprintf(filename,"ther_1_v2_49.vtk");
@@ -1100,9 +1147,11 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs)
 	//sprintf(filename,"pn1_199.vtk");
 	//sprintf(filename,"input_v2.vtk");
 	//sprintf(filename,"ther_str_v2_39.vtk");
-	sprintf(filename,"tetra_v2_3_27.vtk");
+	//sprintf(filename,"tetra_v2_3_27.vtk");
+//	sprintf(filename,"stress_test3_v2_19.vtk");
+//	sprintf(filename,"stress_d1_v2_19.vtk");
 	//sprintf(filename,"tetra_v2_15.vtk");
-	init_from_file(&eta[1][0],filename);
+//	init_from_file(&eta[1][0],filename);
 //	sprintf(filename,"Mplate_v3.vtk");
 	//sprintf(filename,"M_p3_2_v3_49.vtk");
 //	sprintf(filename,"V3_input.vtk");
@@ -1116,11 +1165,30 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs)
 	//sprintf(filename,"input_v3.vtk");
 //	sprintf(filename,"ther_T02_r_v3_49.vtk");
 	//sprintf(filename,"ther_str_v3_39.vtk");
-	sprintf(filename,"tetra_v3_3_27.vtk");
+//	sprintf(filename,"stress_d1_v3_19.vtk");
+	//sprintf(filename,"stress_test3_v3_19.vtk");
 	//sprintf(filename,"tetra_v3_15.vtk");
-	init_from_file(&eta[2][0],filename);
+//	init_from_file(&eta[2][0],filename);
 //	sprintf(filename,"Mplate_v4.vtk");
-	//sprintf(filename,"M_p3_2_v4_49.vtk");
+//	sprintf(filename,"stress_d1_v4_19.vtk");
+	//sprintf(filename,"stress_test3_v4_19.vtk");
+	//sprintf(filename,"tetra_v3_15.vtk");
+//	init_from_file(&eta[3][0],filename);
+	sprintf(filename,"eta_v1_rand3_12.vtk");
+	init_from_file(&eta[4][0],filename);
+
+	sprintf(filename,"eta_v2_rand3_12.vtk");
+	init_from_file(&eta[5][0],filename);
+	sprintf(filename,"eta_v3_rand3_12.vtk");
+	init_from_file(&eta[6][0],filename);
+	sprintf(filename,"eta_v4_rand3_12.vtk");
+	init_from_file(&eta[7][0],filename);
+	sprintf(filename,"eta_v5_rand3_12.vtk");
+	init_from_file(&eta[8][0],filename);
+	sprintf(filename,"eta_v6_rand3_12.vtk");
+	init_from_file(&eta[9][0],filename);
+
+//sprintf(filename,"M_p3_2_v4_49.vtk");
 //	sprintf(filename,"V4_input.vtk");
 //	sprintf(filename,"Small2_v4_99.vtk");
 //	sprintf(filename,"ther_1_v4_49.vtk");
@@ -1138,6 +1206,18 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs)
 //	sprintf(filename,"%s",input_eta);
 	//init_from_file(*eta,filename);
 //	sprintf(filename,"Plate_v1.vtk");
+	sprintf(filename,"Ni_rand3_12.vtk");
+//	sprintf(filename,"Ni_rand_12.vtk");
+//	sprintf(filename,"Hphase_large2_Ni_10.vtk");
+//	//sprintf(filename,"Hphase_1d_Ni_49.vtk");
+//	init_from_file(&eta[6][0],filename);
+	init_from_file(&conc1[0],filename);
+	sprintf(filename,"Hf_rand3_12.vtk");
+//	sprintf(filename,"Hf_diss_18.vtk");
+//	sprintf(filename,"Hf_conc2_05.vtk");
+//	sprintf(filename,"Hphase_large2_Hf_10.vtk");
+//	init_from_file(&eta[7][0],filename);
+	init_from_file(&conc2[0],filename);
 
 //	sprintf(filename,"Part_V1.vtk");
 //	init_from_file(&eta[4][0],filename);
@@ -1367,15 +1447,25 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 
 		for(i=0;i<nx;i++)
 			for(j=0;j<ny;j++)
-				for(k=0;k<nz/4;k++)		
+				for(k=0;k<nz;k++)		
 		{
 					indx2=index2(i,j,k);
+		if(k<=nz/4)
+		{
 							eta[0][indx2]=1;
-							eta[6][indx2]=0.525;//x_Ni
-						eta[7][indx2]=0.255;//x-Hf
-
+							eta[6][indx2]=0.53;//x_Ni
+						eta[7][indx2]=0.26;//x-Hf
 }
-
+}
+/*
+else if((k>=nz/2)&&(k<=3*nz/4))
+{
+							eta[0][indx2]=0;
+							eta[6][indx2]=0.498;//x_Ni
+						eta[7][indx2]=0.19;//x-Hf
+}
+}
+*/
 //				}
 //	For 2D strain field of H-phase
 /*
@@ -1430,8 +1520,8 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 						if(tp1*tp1/a[2]/a[2]+tp2*tp2/a[1]/a[1]+tp3*tp3/a[1]/a[1]<=1.0/4.0)
 						{
 							eta[iv][indx2]=1;
-							eta[6][indx2]=0.53;//x_Ni
-						eta[7][indx2]=0.263;//x-Hf
+							eta[6][indx2]=0.59;//x_Ni
+						eta[7][indx2]=0.29;//x-Hf
 						}
 						break;
 					case 2:
@@ -1440,7 +1530,7 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 						{
 							eta[iv][indx2]=1;
 							eta[6][indx2]=0.53;//x_Ni
-							eta[7][indx2]=0.263;//x_Hf
+							eta[7][indx2]=0.268;//x_Hf
 						}
 						break;
 					case 4:
@@ -1449,7 +1539,7 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 						{
 							eta[iv][indx2]=1;
 							eta[6][indx2]=0.53;//x_Ni
-							eta[7][indx2]=0.263;//x_Hf
+							eta[7][indx2]=0.268;//x_Hf
 						}
 						break;
 					default:
@@ -1647,11 +1737,12 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Part_V1.vtk");
 	//sprintf(filename,"Hphase_p_v1_00.vtk");
 //	sprintf(filename,"Hphase_two2_v1_05.vtk");
-	sprintf(filename,"Hphase_single3_v1_12.vtk");
+	sprintf(filename,"eta_v1_rand5_10.vtk");
 //	sprintf(filename,"Hphase_1d_v1_49.vtk");
 //	sprintf(filename,"Hphase_p4_v1_02.vtk");
 //	sprintf(filename,"%s",input_eta);
 	//init_from_file(*eta,filename);
+//	init_from_file(&eta[12][0],filename);
 	init_from_file(&eta[4][0],filename);
 //        sprintf(filename,"Part_V2.vtk");
 	//sprintf(filename,"Hphase_p_v2_00.vtk");
@@ -1662,7 +1753,8 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Plate_v2.vtk");
 //	sprintf(filename,"Hphase_p_v2_09.vtk");
 //	sprintf(filename,"input_v2.vtk");
-//	init_from_file(&eta[5][0],filename);
+	sprintf(filename,"eta_v2_rand5_10.vtk");
+	init_from_file(&eta[5][0],filename);
 //	sprintf(filename,"Hphase_two2_v3_05.vtk");
 //	sprintf(filename,"Hphase_large2_v3_10.vtk");
 	//sprintf(filename,"Hphase_p_v3_00.vtk");
@@ -1673,7 +1765,8 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Plate_v3.vtk");
 	//sprintf(filename,"hph_v3_01.vtk");
 //	sprintf(filename,"input_v3.vtk");
-//	init_from_file(&eta[6][0],filename);
+	sprintf(filename,"eta_v3_rand5_10.vtk");
+	init_from_file(&eta[6][0],filename);
 //	sprintf(filename,"Hphase_two2_v4_05.vtk");
 //	sprintf(filename,"Hphase_large2_v4_10.vtk");
 //	sprintf(filename,"Hphase_1d_v4_49.vtk");
@@ -1683,7 +1776,8 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Part_V4.vtk");
 //	sprintf(filename,"Hphase_p4_v4_02.vtk");
 //	sprintf(filename,"input_v4.vtk");
-//	init_from_file(&eta[7][0],filename);
+	sprintf(filename,"eta_v4_rand5_10.vtk");
+	init_from_file(&eta[7][0],filename);
 //	sprintf(filename,"Hphase_two2_v5_05.vtk");
 //	sprintf(filename,"Hphase_large2_v5_10.vtk");
 //	sprintf(filename,"Hphase_1d_v5_49.vtk");
@@ -1693,7 +1787,8 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 //	sprintf(filename,"Part_V5.vtk");
 //	sprintf(filename,"Plate_v5.vtk");
 //	sprintf(filename,"input_v5.vtk");
-//	init_from_file(&eta[8][0],filename);
+	sprintf(filename,"eta_v5_rand5_10.vtk");
+	init_from_file(&eta[8][0],filename);
 	//sprintf(filename,"Hphase_small6.vtk");
 //	sprintf(filename,"Hphase_two2_v2_05.vtk");
 //	sprintf(filename,"Hphase_large2_v6_10.vtk");
@@ -1703,15 +1798,20 @@ void GInitConfig::Init_field(float *eta[],float *conc1,float *conc2)
 	//sprintf(filename,"Hphase_p4_v6_02.vtk");
 //	sprintf(filename,"Part_V6.vtk");
 //	sprintf(filename,"input_v6.vtk");
-//	init_from_file(&eta[9][0],filename);
+	sprintf(filename,"eta_v6_rand5_10.vtk");
+	init_from_file(&eta[9][0],filename);
 //	sprintf(filename,"Ni_conc2_05.vtk");
-	sprintf(filename,"Hphase_Ni3.vtk");
+//	sprintf(filename,"Ni_diss_18.vtk");
+	sprintf(filename,"Ni_rand5_10.vtk");
 //	sprintf(filename,"Hphase_large2_Ni_10.vtk");
 //	//sprintf(filename,"Hphase_1d_Ni_49.vtk");
+//	init_from_file(&eta[6][0],filename);
 	init_from_file(&conc1[0],filename);
-	sprintf(filename,"Hphase_Hf3.vtk");
+	sprintf(filename,"Hf_rand5_10.vtk");
+//	sprintf(filename,"Hf_diss_18.vtk");
 //	sprintf(filename,"Hf_conc2_05.vtk");
 //	sprintf(filename,"Hphase_large2_Hf_10.vtk");
+//	init_from_file(&eta[7][0],filename);
 	init_from_file(&conc2[0],filename);
  
 //	sprintf(filename,"eta_input.vtk");

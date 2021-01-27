@@ -70,8 +70,8 @@ int Gelastic::Init_Space()
 			assert(s0[indx1]!=NULL);
 		}
 //	Allocate Bpq,Bpd
-	if(output_stress!=1)
-	{
+//	if(output_stress!=1)
+//	{
 		Bpq=new float*[ng*nv*ng*nv];
 		assert(Bpq!=NULL);
 		for(g1=0;g1<ng;g1++)
@@ -83,9 +83,10 @@ int Gelastic::Init_Space()
 						Bpq[indx11]=new float[nxyz];
 						assert(Bpq[indx11]!=NULL);
 					}
-	}
+/*	}
 	else
 	{
+	*/
 		for(mm=0;mm<3;mm++)
 			for(nn=0;nn<3;nn++)
 			{
@@ -99,7 +100,7 @@ int Gelastic::Init_Space()
 						assert((Bpd[mm][nn])[indx1]!=NULL);
 					}
 			}
-	}
+//	}
 //	Allocate rot
 	rot=new float*[ng];
 	assert(rot!=NULL);
@@ -270,12 +271,14 @@ int Gelastic::Set(int n[],float cc[],float aa[],
 	Set_SFTS(); // w/o rotation
 	Set_rot(rott);
 	Set_s0();
+        //Calc_Bpd();
 
 	if(output_interenergy==1)
 		return 1;
 	if(output_stress!=1)
+{		Calc_Bpd();
 		Calc_Bpq();
-	else
+	}else
 		Calc_Bpd();
 
 	return 0;
@@ -377,6 +380,8 @@ int Gelastic::Set_SFTS()
 				{
 					iindx2=ii*3+jj;
 					(e0[indx1])[iindx2]=0;
+              // if(v1>3)
+               //  continue;
 					for(kk=0;kk<3;kk++)
 						(e0[indx1])[iindx2]+=(u[indx1])[kk*3+ii]*(u[indx1])[kk*3+jj];
 
@@ -397,7 +402,7 @@ int Gelastic::Set_SFTS()
 //	Set_SFTS_TiAlV();
 
 //	SFTS for H-phase
-	Set_SFTS_NiTiHf();
+//	Set_SFTS_NiTiHf();
 //	set SFTS for ppt
 // use B2 to tetragonal
 /*
@@ -448,7 +453,7 @@ int Gelastic::Set_SFTS()
 //
 //
 /*
-				e0[4][0]=0.0224;
+                                e0[4][0]=0.0224;
 				e0[4][1]=0;
 				e0[4][2]=0;
 				e0[4][3]=0;
@@ -490,6 +495,7 @@ int Gelastic::Set_SFTS()
 				e0[7][6]=-0.0072;
 				e0[7][7]=0;
 				e0[7][8]=0.0024;
+				
 				e0[8][0]=0.0024;
 				e0[8][1]=0.0072;
 				e0[8][2]=0;
@@ -499,6 +505,7 @@ int Gelastic::Set_SFTS()
 				e0[8][6]=0;
 				e0[8][7]=0;
 				e0[8][8]=0.0224;
+				
 				e0[9][0]=0.0024;
 				e0[9][1]=-0.0072;
 				e0[9][2]=0;
@@ -510,6 +517,71 @@ int Gelastic::Set_SFTS()
 				e0[9][8]=0.0224;
 */
 
+/*
+				e0[4][0]=0.0;
+				e0[4][1]=0;
+				e0[4][2]=0;
+				e0[4][3]=0;
+				e0[4][4]=0.0;
+				e0[4][5]=0.0;
+				e0[4][6]=0;
+				e0[4][7]=0.0;
+				e0[4][8]=0.0;
+
+
+				e0[5][0]=0.0;
+				e0[5][1]=0;
+				e0[5][2]=0;
+				e0[5][3]=0;
+				e0[5][4]=0.0;
+				e0[5][5]=-0.0;
+				e0[5][6]=0;
+				e0[5][7]=-0.0;
+				e0[5][8]=0.0;
+				
+
+
+				e0[6][0]=0.0;
+				e0[6][1]=0;
+				e0[6][2]=0.0;
+				e0[6][3]=0;
+				e0[6][4]=0.0;
+				e0[6][5]=0;
+				e0[6][6]=0.0;
+				e0[6][7]=0;
+				e0[6][8]=0.0;
+
+				e0[7][0]=0.0;
+				e0[7][1]=0;
+				e0[7][2]=-0.0;
+				e0[7][3]=0;
+				e0[7][4]=0.0;
+				e0[7][5]=0;
+				e0[7][6]=-0.0;
+				e0[7][7]=0;
+				e0[7][8]=0.0;
+				
+				e0[8][0]=0.0;
+				e0[8][1]=0.0;
+				e0[8][2]=0;
+				e0[8][3]=0.0;
+				e0[8][4]=0.0;
+				e0[8][5]=0;
+				e0[8][6]=0;
+				e0[8][7]=0;
+				e0[8][8]=0.0;
+				
+				e0[9][0]=0.0;
+				e0[9][1]=-0.0;
+				e0[9][2]=0;
+				e0[9][3]=-0.0;
+				e0[9][4]=0.0;
+				e0[9][5]=0;
+				e0[9][6]=0;
+				e0[9][7]=0;
+				e0[9][8]=0.0;
+
+*/
 /* 
 				e0[10][0]=0.0;
 				e0[10][1]=-0.0;
@@ -1813,14 +1885,58 @@ int Gelastic::Set_g()
 int Gelastic::AppliedStress(float s_applied[][3])
 {
 	int g1,v1;
-	long int indx1;
-	int mm,nn;
+	long int indx1,indx2;
+	int mm,nn,i,j,k,mnindx;
+	ofstream *fout,vout,eout;
 
 	if(bc!=RELAX)
 	{
 		cout<<"Invalid boundary condition for applied stress!"<<endl;
 		exit(1);
 	}
+
+	float **stress=new float*[3*3];
+	assert(stress!=NULL);
+	for(mm=0;mm<3;mm++)
+		for(nn=0;nn<3;nn++)
+		{
+			mnindx=mm*3+nn;
+			stress[mnindx]=new float[nx*ny*nz];
+			assert(stress[mnindx]!=NULL);
+		}
+	//Load_StressField(stress);
+        float **potential= new float*[ng*nv];
+	fout=new ofstream[ng*nv];
+	assert(fout!=NULL);
+	for(g1=0;g1<ng;g1++)
+		for(v1=0;v1<nv;v1++)
+		{
+			indx1=index1(g1,v1);
+			potential[indx1]=new float[nx*ny*nz];
+			assert(potential[indx1]!=NULL);
+		}
+	for(k=0;k<nz;k++)
+		for(j=0;j<ny;j++)
+			for(i=0;i<nx;i++)
+			{
+				indx2=index2(i,j,k);
+				for(g1=0;g1<ng;g1++)
+					for(v1=0;v1<nv;v1++)
+					{
+						indx1=index1(g1,v1);
+						potential[indx1][indx2]=0;
+						for(mm=0;mm<3;mm++)
+							for(nn=0;nn<3;nn++)
+							{
+								mnindx=mm*3+nn;
+								potential[indx1][indx2]=stress[mnindx][indx2]*e0[indx1][mnindx];
+							}
+							// InterEnergy for each variant
+					//		fout[indx1]<<-energy[indx1]<<endl;
+					}
+			}
+
+
 	for(mm=0;mm<3;mm++)
 		for(nn=0;nn<3;nn++)
 			s_app[mm][nn]=s_applied[mm][nn]*s_app_mag;
@@ -1841,7 +1957,8 @@ int Gelastic::UpdateStress(float s_applied[][3])
 	int g1,v1;
 	long int indx1;
 	int mm,nn;
-
+	int num=0;
+       // num++;
 	if(bc!=RELAX)
 	{
 		cout<<"Invalid boundary condition for applied stress!"<<endl;
@@ -1849,16 +1966,17 @@ int Gelastic::UpdateStress(float s_applied[][3])
 	}
 	for(mm=0;mm<3;mm++)
 		for(nn=0;nn<3;nn++)
-			s_app[mm][nn]=s_applied[mm][nn]*(s_app_inc);
+			s_app[mm][nn]+=s_applied[mm][nn]*(s_app_inc);
+		//	s_app[mm][nn]+=s_applied[mm][nn]*(-10);
 	for(g1=0;g1<ng;g1++)
 		for(v1=0;v1<nv;v1++)
 		{
 			indx1=index1(g1,v1);
-	//		s_app_miu[indx1]=0;
+			s_app_miu[indx1]=0;
 			for(mm=0;mm<3;mm++)
 				for(nn=0;nn<3;nn++)
 					s_app_miu[indx1]-=s_app[mm][nn]*(e0[indx1])[mm*3+nn];
-	       cout<<"app_miu="<<s_app_miu[indx1]<<endl;
+	       cout<<"update_app_miu="<<s_app_miu[indx1]<<endl;
 		}
 	return 0;
 
@@ -1929,8 +2047,11 @@ int Gelastic::Output_Stress(float **eta,int *gs) // Total stress field: includin
 	int g1,v1,i,j,k;
 	long int indx1,indx2;
 	int mm,nn,kk,ll;
+	char f0[20], f1[20], f2[20], f3[20];
+	char f4[20], f5[20], f6[20], f7[20], f8[20];
 
-	if(output_stress!=1 || Bpd==NULL)
+//	if(output_stress!=1 || Bpd==NULL)
+	if(Bpd==NULL)
 	{
 		cout<<"Invalid input for output stress!"<<endl;
 		exit(1);
@@ -1969,10 +2090,10 @@ int Gelastic::Output_Stress(float **eta,int *gs) // Total stress field: includin
 					}
 			gfft.FFTW_3D(miu_k,miu,BACKWARD);
 			
-			fn[6]=(char)((int)'0'+mm*3+nn);
-			ofstream fout(fn,ios::out);
-			Output_VTK_header(&fout,nx,ny,nz);
-			fout<<fixed;
+		//	fn[6]=(char)((int)'0'+mm*3+nn);
+		//	ofstream fout(fn,ios::out);
+		//	Output_VTK_header(&fout,nx,ny,nz);
+		//	fout<<fixed;
 			for(k=0;k<nz;k++)
 				for(j=0;j<ny;j++)
 					for(i=0;i<nx;i++)
@@ -1993,11 +2114,11 @@ int Gelastic::Output_Stress(float **eta,int *gs) // Total stress field: includin
 								}
 						}
 
-						fout<<setprecision(9)<<miu[indx2]<<endl;
-						s_field[mm*3+nn][indx2]=miu[indx2];
-					}
-			fout.flush();
-			fout.close();
+		//				fout<<setprecision(9)<<miu[indx2]<<endl;
+	      				s_field[mm*3+nn][indx2]=miu[indx2]/100;
+	      			}
+//			fout.flush();
+//			fout.close();
 		}
 	
 	fftw_free(miu_k);
@@ -2007,20 +2128,24 @@ int Gelastic::Output_Stress(float **eta,int *gs) // Total stress field: includin
 }
 
 
-int Gelastic::Output_Strain(float **eta,int *gs) // Total stress field: including applied stress/strain
+int Gelastic::Output_Strain(float **eta,int *gs, int out) // Total stress field: including applied stress/strain
 {
 	int g1,v1,i,j,k;
 	long int indx1,indx2;
 	int mm,nn,ii,jj,kk,ll;
-FILE *fp=NULL;
-	char fn[]="strain0.vtk";
+//FILE *fp=NULL;
+	char f0[20], f1[20], f2[20], f3[20];
+	char f4[20], f5[20], f6[20], f7[20], f8[20];
+	static int num=0;
+	float e0_total[3][3]={0},s_total[3][3]={0};
+	float e1,fraction;
 
-	if(output_stress!=1 || Bpd==NULL)
+/*	if(output_stress!=1 || Bpd==NULL)
 	{
 		cout<<"Invalid input for output stress!"<<endl;
 		exit(1);
 	}
-
+*/
 	float **e_field=new float *[9];
 	assert(e_field!=NULL);
 	for(int i=0;i<9;i++)
@@ -2030,6 +2155,46 @@ FILE *fp=NULL;
 	}
 
 	Set_Sijkl_Hphase();
+/*
+				for(mm=0;mm<3;mm++)
+					for(nn=0;nn<3;nn++)
+						for(kk=0;kk<3;kk++)
+							for(ll=0;ll<3;ll++)
+							{
+	printf("S_%d_%d_%d_%d=%lf\n",mm,nn,kk,ll,Sijkl[mm][nn][kk][ll]);
+               }
+*/	   
+/*
+        sprintf(f0,"strain11_%02d.vtk",num);
+	sprintf(f1,"strain12_%02d.vtk",num);
+	sprintf(f2,"strain13_%02d.vtk",num);
+	sprintf(f3,"strain21_%02d.vtk",num);
+        sprintf(f4,"strain22_%02d.vtk",num);
+	sprintf(f5,"strain23_%02d.vtk",num);
+	sprintf(f6,"strain31_%02d.vtk",num);
+	sprintf(f7,"strain32_%02d.vtk",num);
+	sprintf(f8,"strain33_%02d.vtk",num);
+
+        num++;
+	ofstream f0_out(f0,ios::out);
+	ofstream f1_out(f1,ios::out);
+	ofstream f2_out(f2,ios::out);
+	ofstream f3_out(f3,ios::out);
+	ofstream f4_out(f4,ios::out);
+	ofstream f5_out(f5,ios::out);
+	ofstream f6_out(f6,ios::out);
+	ofstream f7_out(f7,ios::out);
+	ofstream f8_out(f8,ios::out);
+	Output_VTK_header(&f0_out,nx,ny,nz);
+	Output_VTK_header(&f1_out,nx,ny,nz);
+	Output_VTK_header(&f2_out,nx,ny,nz);
+	Output_VTK_header(&f3_out,nx,ny,nz);
+	Output_VTK_header(&f4_out,nx,ny,nz);
+	Output_VTK_header(&f5_out,nx,ny,nz);
+	Output_VTK_header(&f6_out,nx,ny,nz);
+	Output_VTK_header(&f7_out,nx,ny,nz);
+	Output_VTK_header(&f8_out,nx,ny,nz);
+*/
 
 	for(i=0;i<nx;i++)
 		for(j=0;j<ny;j++)
@@ -2039,28 +2204,12 @@ FILE *fp=NULL;
 				for(mm=0;mm<3;mm++)
 					for(nn=0;nn<3;nn++)
 					{
-						e_field[mm*3+nn][indx2]=0;
+				//		e_field[mm*3+nn][indx2]=0;
 						for(kk=0;kk<3;kk++)
 							for(ll=0;ll<3;ll++)
 							{
 								e_field[mm*3+nn][indx2]+=Sijkl[mm][nn][kk][ll]*s_field[kk*3+ll][indx2];
 							}
-					}
-			}
-
-	for(mm=0;mm<3;mm++)
-		for(nn=0;nn<3;nn++)
-		{
-			fn[6]=(char)((int)'0'+mm*3+nn);
-			ofstream fout(fn,ios::out);
-			Output_VTK_header(&fout,nx,ny,nz);
-			fout<<fixed;
-			for(k=0;k<nz;k++)
-				for(j=0;j<ny;j++)
-					for(i=0;i<nx;i++)
-					{
-						indx2=index2(i,j,k);
-						
 						float tp=0;
 						for(int v1=0;v1<nv;v1++)
 						{
@@ -2068,12 +2217,108 @@ FILE *fp=NULL;
 						}
 
 						e_field[mm*3+nn][indx2]+=tp;
-				//	fprintf(fp,"%.6lf \n",e_field[mm*3+nn][indx2]);	
-						fout<<setprecision(9)<<e_field[mm*3+nn][indx2]<<endl;
 					}
-			fout.flush();
-			fout.close();
+			}
+
+
+//	for(mm=0;mm<3;mm++)
+//		for(nn=0;nn<3;nn++)
+//		{
+//			fn[6]=(char)((int)'0'+mm*3+nn);
+		//	ofstream fout(fn,ios::out);
+		//	Output_VTK_header(&fout,nx,ny,nz);
+//			fout<<fixed;
+/*			
+			for(k=0;k<nz;k++)
+				for(j=0;j<ny;j++)
+					for(i=0;i<nx;i++)
+					{
+						indx2=index2(i,j,k);
+						
+                 	for(mm=0;mm<3;mm++)
+		               for(nn=0;nn<3;nn++)
+	 	                     { 
+						float tp=0;
+						for(int v1=0;v1<nv;v1++)
+						{
+							tp+=eta[v1][indx2]*e0[v1][mm*3+nn];
+						}
+
+						e_field[mm*3+nn][indx2]+=tp;
+						}
+				//	fprintf(fp,"%.6lf \n",e_field[mm*3+nn][indx2]);	
+//	fprintf(fp,"%.6lf \n",e_field[mm*3+nn][indx2]);	
+*/
+/*						f0_out<<setprecision(9)<<e_field[0][indx2]<<endl;
+						f1_out<<setprecision(9)<<e_field[1][indx2]<<endl;
+						f2_out<<setprecision(9)<<e_field[2][indx2]<<endl;
+						f3_out<<setprecision(9)<<e_field[3][indx2]<<endl;
+						f4_out<<setprecision(9)<<e_field[4][indx2]<<endl;
+						f5_out<<setprecision(9)<<e_field[5][indx2]<<endl;
+						f6_out<<setprecision(9)<<e_field[6][indx2]<<endl;
+						f7_out<<setprecision(9)<<e_field[7][indx2]<<endl;
+						f8_out<<setprecision(9)<<e_field[8][indx2]<<endl;
+*/				
+//				}//end of space loop
+	//		fout.flush();
+	//		fout.close()
+	//		}
+/*	f0_out.flush();
+	f0_out.close();
+	f1_out.flush();
+	f1_out.close();
+	f2_out.flush();
+	f2_out.close();
+	f3_out.flush();
+	f3_out.close();
+	f4_out.flush();
+	f4_out.close();
+
+	f5_out.flush();
+	f5_out.close();
+	
+	f6_out.flush();
+	f6_out.close();
+	f7_out.flush();
+	f7_out.close();
+	f8_out.flush();
+	f8_out.close();
+*/
+
+//	ofstream fout("Total Strain.dat",ios::out);
+//	cout<<"Total Strain: "<<num<<endl;
+
+	cout<<"Calculate average total strain!"<<endl;
+	for(mm=0;mm<3;mm++)
+		for(nn=0;nn<3;nn++)
+		{
+			e0_total[mm][nn]=0;
+
+			for(i=0;i<nx;i++)
+				for(j=0;j<ny;j++)
+					for(k=0;k<nz;k++)
+					{
+						indx2=index2(i,j,k);
+						for(g1=0;g1<ng;g1++)
+						{
+							if(g1!=gs[indx2])
+								continue;
+
+							for(v1=0;v1<nv;v1++)
+							{
+								indx1=index1(g1,v1);
+								e1=(eta[indx1])[indx2];
+
+								e0_total[mm][nn]+=e_field[mm*3+nn][indx2]/nx/ny/nz;
+							}
+						}
+					}
+		//	cout<<e0_total[mm][nn]<<endl;
 		}
+			cout<<"Average Strain11="<<e0_total[0][0]<<endl;
+//	fout.flush();
+//	fout.close();
+
 	
 	return 0;
 }
@@ -2081,10 +2326,37 @@ FILE *fp=NULL;
 int Gelastic::Set_Sijkl_Hphase()
 {
 	int ii,jj,kk,ll;
+        voigt66 Cij0,Sij0;
 
 	//	Sijkl for rotated NiTi B2
 	cout<<"Strain field is only for rotation NiTi B2!"<<endl;
+//	chg_basis_Kelvin_4(Cijkl,Cij0);
+      C4_loop{
+            int p = (mi+1)*(mi==mj)+(1-(mi==mj))*(7-mi-mj);
+            int q = (mk+1)*(mk==ml)+(1-(mk==ml))*(7-mk-ml);
+            real t1 = ((real)(mi==mj)+(1.-(mi==mj))/RSQ2);
+            real t2 = ((real)(mk==ml)+(1.-(mk==ml))/RSQ2);
+            Cij0[p-1][q-1] = t1*t2*Cijkl[mi][mj][mk][ml];
+        }
+	C6_loop{
+        Sij0[mi][mj] = Cij0[mi][mj];
+    	}
+    	LU_inv_66(Sij0);
+//	chg_basis_Kelvin_3(Sij0,Sijkl);
+        C4_loop{
+            int p = (mi+1)*(mi==mj)+(1-(mi==mj))*(7-mi-mj);
+            int q = (mk+1)*(mk==ml)+(1-(mk==ml))*(7-mk-ml);
+            real t1 = ((real)(mi==mj)+(1.-(mi==mj))/RSQ2);
+            real t2 = ((real)(mk==ml)+(1.-(mk==ml))/RSQ2);
+            Sijkl[mi][mj][mk][ml] = Sij0[p-1][q-1]/t1/t2;
+        }
 
+        C4_loop{
+	
+            Sijkl[mi][mj][mk][ml] = Sijkl[mi][mj][mk][ml]/scale;
+
+	}
+/*
 	for(ii=0;ii<3;ii++)
 		for(jj=0;jj<3;jj++)
 			for(kk=0;kk<3;kk++)
@@ -2092,19 +2364,23 @@ int Gelastic::Set_Sijkl_Hphase()
 				{
 					Sijkl[ii][jj][kk][ll]=0;
 				}
-	Sijkl[0][0][0][0]=1.0641;
+	Sijkl[0][0][0][0]=1.8720;
 	Sijkl[1][1][1][1]=1.8720;
-	Sijkl[2][2][2][2]=1.0641;
+	Sijkl[2][2][2][2]=1.8720;
 	
 	Sijkl[0][0][1][1]=Sijkl[1][1][0][0]=-0.8307;
 	Sijkl[1][1][2][2]=Sijkl[2][2][1][1]=-0.8307;
-	Sijkl[2][2][0][0]=Sijkl[0][0][2][2]=-0.0229;
+	Sijkl[2][2][0][0]=Sijkl[0][0][2][2]=-0.8307;
 
 	Sijkl[0][1][0][1]=Sijkl[0][1][1][0]=Sijkl[1][0][0][1]=Sijkl[1][0][1][0]=2.1739;
 	Sijkl[1][2][1][2]=Sijkl[1][2][2][1]=Sijkl[2][1][1][2]=Sijkl[2][1][2][1]=2.1739;
 	Sijkl[2][0][2][0]=Sijkl[2][0][0][2]=Sijkl[0][2][2][0]=Sijkl[0][2][0][2]=5.4054;
 
-	return 0;
+	Sijkl[0][1][0][1]=Sijkl[0][1][1][0]=Sijkl[1][0][0][1]=Sijkl[1][0][1][0]=0.5435;
+	Sijkl[1][2][1][2]=Sijkl[1][2][2][1]=Sijkl[2][1][1][2]=Sijkl[2][1][2][1]=0.5435;
+	Sijkl[2][0][2][0]=Sijkl[2][0][0][2]=Sijkl[0][2][2][0]=Sijkl[0][2][0][2]=0.5435;
+*/
+return 0;
 }
 
 
@@ -2136,7 +2412,7 @@ int Gelastic::Output_InterEnergy() // -stress*strain
 			stress[mnindx]=new float[nx*ny*nz];
 			assert(stress[mnindx]!=NULL);
 		}
-	Load_StressField(stress);
+//	Load_StressField(stress);
 
 //	Calculate Interaction Energy
 	energy=new float[ng*nv];
@@ -2251,7 +2527,7 @@ int Gelastic::Load_StressField(float **stress)
 	char temp[80]={0};
 	char fn[]="stress0.vtk";
 	ifstream fin;
-
+        cout<<"Stress is loaded!"<<endl;
 	if(stress==NULL)
 	{
 		cout<<"No space for stress loading!"<<endl;
@@ -2755,79 +3031,79 @@ int Gelastic::Set_SFTS_NiTiHf()  // Used for H-phase
 			switch(v1)
 			{
 			case 0:
-				e0[indx1][0]=0.0224;
+				e0[indx1][0]=0.02291;
 				e0[indx1][1]=0;
 				e0[indx1][2]=0;
 				e0[indx1][3]=0;
-				e0[indx1][4]=0.0024;
-				e0[indx1][5]=0.0072;
+				e0[indx1][4]=0.00195;
+				e0[indx1][5]=0.00726;
 				e0[indx1][6]=0;
-				e0[indx1][7]=0.0072;
-				e0[indx1][8]=0.0024;
+				e0[indx1][7]=0.00726;
+				e0[indx1][8]=0.00195;
 
 				break;
 
 			case 1:
-				e0[indx1][0]=0.0224;
+				e0[indx1][0]=0.02291;
 				e0[indx1][1]=0;
 				e0[indx1][2]=0;
 				e0[indx1][3]=0;
-				e0[indx1][4]=0.0024;
-				e0[indx1][5]=-0.0072;
+				e0[indx1][4]=0.00195;
+				e0[indx1][5]=-0.00726;
 				e0[indx1][6]=0;
-				e0[indx1][7]=-0.0072;
-				e0[indx1][8]=0.0024;
+				e0[indx1][7]=-0.00726;
+				e0[indx1][8]=0.00195;
 
 				break;
 
 			case 2:
-				e0[indx1][0]=0.0024;
+				e0[indx1][0]=0.00195;
 				e0[indx1][1]=0;
-				e0[indx1][2]=0.0072;
+				e0[indx1][2]=0.00726;
 				e0[indx1][3]=0;
-				e0[indx1][4]=0.0224;
+				e0[indx1][4]=0.02291;
 				e0[indx1][5]=0;
-				e0[indx1][6]=0.0072;
+				e0[indx1][6]=0.00726;
 				e0[indx1][7]=0;
-				e0[indx1][8]=0.0024;
+				e0[indx1][8]=0.00195;
 
 				break;
 
 			case 3:
-				e0[indx1][0]=0.0024;
+				e0[indx1][0]=0.00195;
 				e0[indx1][1]=0;
-				e0[indx1][2]=-0.0072;
+				e0[indx1][2]=-0.00726;
 				e0[indx1][3]=0;
-				e0[indx1][4]=0.0224;
+				e0[indx1][4]=0.02291;
 				e0[indx1][5]=0;
-				e0[indx1][6]=-0.0072;
+				e0[indx1][6]=-0.00726;
 				e0[indx1][7]=0;
-				e0[indx1][8]=0.0024;
+				e0[indx1][8]=0.00195;
 
 				break;
 
 			case 4:
-				e0[indx1][0]=0.0024;
-				e0[indx1][1]=0.0072;
+				e0[indx1][0]=0.00195;
+				e0[indx1][1]=0.00726;
 				e0[indx1][2]=0;
-				e0[indx1][3]=0.0072;
-				e0[indx1][4]=0.0024;
+				e0[indx1][3]=0.00726;
+				e0[indx1][4]=0.00195;
 				e0[indx1][5]=0;
 				e0[indx1][6]=0;
 				e0[indx1][7]=0;
-				e0[indx1][8]=0.0224;
+				e0[indx1][8]=0.02291;
 
 				break;
 			case 5:
-				e0[indx1][0]=0.0024;
-				e0[indx1][1]=-0.0072;
+				e0[indx1][0]=0.00195;
+				e0[indx1][1]=-0.00726;
 				e0[indx1][2]=0;
-				e0[indx1][3]=-0.0072;
-				e0[indx1][4]=0.0024;
+				e0[indx1][3]=-0.00726;
+				e0[indx1][4]=0.00195;
 				e0[indx1][5]=0;
 				e0[indx1][6]=0;
 				e0[indx1][7]=0;
-				e0[indx1][8]=0.0224;
+				e0[indx1][8]=0.02291;
 
 				break;
 				
@@ -3040,3 +3316,178 @@ int Gelastic::Set_SFTS_habit()
 	return 0;
 }
 
+void Gelastic::LU_dcmp(real **a, int n, int *indx, real *d)
+{
+
+	/* Adopted from "Numerical Recipeis in C" by W Press et. al.
+
+	   Given a matrix a[1..n][1..n], this function REPLACE it by
+	   the LU decomposition of a rowwise permutation of itself.
+INPUT:
+	a -- original matrix
+	n -- dimension
+OUTPUT:
+	a -- matrix containing L and U
+	indx -- row permuation effected by the partial pivoting
+	d -- +1/-1, depending on the number of row interchanges was even or odd, respectively. */
+
+	int i,imax,j,k;
+	real big,dum,sum,temp;
+	real *vv; //vv stores the implicit scaling of each row.
+
+	vv=(real*)malloc(n*sizeof(real));
+	*d=1.0;		//No row interchanges yet.
+	for (i=1;i<=n;i++) { //Loop over rows to get the implicit scaling information
+		big=0.0; 
+		for (j=1;j<=n;j++)
+		if ((temp=fabs(a[i-1][j-1])) > big) big=temp;
+		if (fabs(big)<1E-10){
+			printf("Singular matrix in function LU_dcmp()!!\n");
+			for(j=1;j<=n;j++){
+					printf("LU_dcmp: a[%d][%d]=%lf\n",i,j,a[i-1][j-1]);
+					fflush(stdout);
+			}
+			exit(35);
+		}
+		//No nonzero largest element.
+		vv[i-1]=1.0/big; //Save the scaling.
+	}
+	for (j=1;j<=n;j++) {	//This is the loop over columns of Crout's method.
+		for (i=1;i<j;i++) {		//This is equation (2.3.12) except for i = j.
+			sum=a[i-1][j-1];
+			for (k=1;k<i;k++) sum -= a[i-1][k-1]*a[k-1][j-1];
+			a[i-1][j-1]=sum;
+		}
+		big=0.0;	//Initialize for the search for largest pivot element.
+		for (i=j;i<=n;i++) {	//This is i = j of equation (2.3.12) and i = j+1...N
+			sum=a[i-1][j-1];		//of equation (2.3.13).
+			for (k=1;k<j;k++) sum -= a[i-1][k-1]*a[k-1][j-1];
+			a[i-1][j-1]=sum;
+			if ( (dum=vv[i-1]*fabs(sum)) >= big) {
+				// Is the figure of merit for the pivot better than the best so far?
+				big=dum;
+				imax=i;
+			}
+		}
+		//Do we need to interchange rows?
+		if (j != imax) {	//Yes, do so...
+			for (k=1;k<=n;k++) {	
+				dum=a[imax-1][k-1];
+				a[imax-1][k-1]=a[j-1][k-1];
+				a[j-1][k-1]=dum;
+			}
+			*d = -(*d);		//...and change the parity of d.
+			vv[imax-1]=vv[j-1];	//Also interchange the scale factor.
+		}
+		indx[j-1]=imax;
+		if (fabs(a[j-1][j-1]) < 1E-5) a[j-1][j-1]=TINY;
+//		 If the pivot element is zero the matrix is singular (at least to the precision of the
+//		algorithm). For some applications on singular matrices, it is desirable to substitute
+//		TINY for zero.
+		if (j != n) {	//Now, finally, divide by the pivot element.
+			dum=1.0/(a[j-1][j-1]);
+			for (i=j+1;i<=n;i++) a[i-1][j-1] *= dum;
+		}
+	}	//Go back for the next column in the reduction.
+	
+	free(vv);
+
+	return;
+}
+/*end LU_dcmp()*/
+
+void Gelastic::LU_bksb(real **a, int n, int *indx, real b[])
+{
+	/* Adopted from "Numerical Recipeis in C" by W Press et. al.
+
+	   Solve the set of n linear equations A*X = B.
+INPUT:
+	a -- matrix A in the LU decomposition form obtained through LU_dcmp()
+	n -- dimension
+	indx -- output of LU_dcmp()
+	b -- vextor B
+OUTPUT:
+	b -- solution X.							*/
+
+	int i,ii=0,ip,j;
+	real sum;
+
+//	 When ii is set to a positive value, it will become the
+//		index of the first nonvanishing element of b. We now
+//		do the forward substitution, equation (2.3.6). The
+//		only new wrinkle is to unscramble the permutation
+//		as we go.
+	for (i=1;i<=n;i++) {
+		ip=indx[i-1];
+		sum=b[ip-1];
+		b[ip-1]=b[i-1];
+		if (ii)
+			for (j=ii;j<=i-1;j++) sum -= a[i-1][j-1]*b[j-1];
+		else if (fabs(sum)>1E-5) ii=i;		//A nonzero element was encountered, so from now on we
+								//will have to b[i]=sum; do the sums in the loop above.
+		b[i-1] = sum;
+	}
+	for (i=n;i>=1;i--) {	//Now we do the backsubstitution, equation (2.3.7).
+		sum=b[i-1];
+		for (j=i+1;j<=n;j++) sum -= a[i-1][j-1]*b[j-1];
+		b[i-1]=sum/a[i-1][i-1];	//Store a component of the solution vector X.
+	}	// All done!
+}
+/*end LU_bksb()*/
+
+void Gelastic::LU_inv_66(voigt66 c)
+{
+//	 Inverse the matrix using LU decomposition.
+//	   The original matrix will be replaced with
+//	   its inverse.
+//		*A special case for 6x6 matrix with voigt66 type,
+//		modified from LU_inverse(real**, int) 
+
+	int indx[6];
+	int n;
+	real d;
+	int i, j;
+	voigt col;
+	voigt66 y;
+	real *a[6] = {c[0],c[1],c[2],c[3],c[4],c[5]};
+
+	n = 6;
+	LU_dcmp(a,n,indx,&d);
+	for(j=0;j<n;j++){
+		for(i=0;i<n;i++) col[i] = 0.0;
+		col[j] = 1.0;
+		LU_bksb(a,n,indx,col);
+		for(i=0;i<n;i++) y[i][j] = col[i];
+	}
+
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			c[i][j] = y[i][j];
+
+	return;
+}
+
+/*end LU_inv_66()*/
+/*
+static inline void Gelastic::chg_basis_Kelvin_4(ten4th T4, voigt66 C2)
+    {
+       C4_loop{
+            int p = (mi+1)*(mi==mj)+(1-(mi==mj))*(7-mi-mj);
+            int q = (mk+1)*(mk==ml)+(1-(mk==ml))*(7-mk-ml);
+            real t1 = ((real)(mi==mj)+(1.-(mi==mj))/RSQ2);
+            real t2 = ((real)(mk==ml)+(1.-(mk==ml))/RSQ2);
+            C2[p-1][q-1] = t1*t2*T4[mi][mj][mk][ml];
+        }
+    }
+
+static inline void Gelastic::chg_basis_Kelvin_3( voigt66 C2, ten4th T4)
+{
+        C4_loop{
+            int p = (mi+1)*(mi==mj)+(1-(mi==mj))*(7-mi-mj);
+            int q = (mk+1)*(mk==ml)+(1-(mk==ml))*(7-mk-ml);
+            real t1 = ((real)(mi==mj)+(1.-(mi==mj))/RSQ2);
+            real t2 = ((real)(mk==ml)+(1.-(mk==ml))/RSQ2);
+            T4[mi][mj][mk][ml] = C2[p-1][q-1]/t1/t2;
+        }
+}
+*/

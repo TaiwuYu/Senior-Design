@@ -256,8 +256,8 @@ int TryGmt()
 	Gmt mt1("input.mt");
 	cout<<"Evolution"<<endl;
          //mt1.Evolution();
-//	mt1.Evolution_RK2();
-        mt1.Evolution_Spectrum();
+	mt1.Evolution_RK2();
+//        mt1.Evolution_Spectrum();
 //	mt1.Output_eta();
 //	mt1.Output_gs();
 	return 0;
