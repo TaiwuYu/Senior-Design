@@ -515,8 +515,8 @@ int Gelastic::Set_SFTS()
 				e0[9][6]=0;
 				e0[9][7]=0;
 				e0[9][8]=0.0224;
-*/
 
+*/
 /*
 				e0[4][0]=0.0;
 				e0[4][1]=0;
@@ -1982,6 +1982,36 @@ int Gelastic::UpdateStress(float s_applied[][3])
 
 
 }
+
+int Gelastic::UpdateStress2(float s_applied[][3])
+{
+	int g1,v1;
+	long int indx1;
+	int mm,nn;
+	int num=0;
+       // num++;
+	if(bc!=RELAX)
+	{
+		cout<<"Invalid boundary condition for applied stress!"<<endl;
+		exit(1);
+	}
+	for(mm=0;mm<3;mm++)
+		for(nn=0;nn<3;nn++)
+			s_app[mm][nn]+=s_applied[mm][nn]*(-1)*(s_app_inc);
+		//	s_app[mm][nn]+=s_applied[mm][nn]*(-10);
+	for(g1=0;g1<ng;g1++)
+		for(v1=0;v1<nv;v1++)
+		{
+			indx1=index1(g1,v1);
+			s_app_miu[indx1]=0;
+			for(mm=0;mm<3;mm++)
+				for(nn=0;nn<3;nn++)
+					s_app_miu[indx1]-=s_app[mm][nn]*(e0[indx1])[mm*3+nn];
+	       cout<<"update_app_miu="<<s_app_miu[indx1]<<endl;
+		}
+	return 0;
+}
+
 int Gelastic::AppliedStrain(float e_applied[][3])
 {
 	int g1,v1;
@@ -2090,10 +2120,10 @@ int Gelastic::Output_Stress(float **eta,int *gs) // Total stress field: includin
 					}
 			gfft.FFTW_3D(miu_k,miu,BACKWARD);
 			
-		//	fn[6]=(char)((int)'0'+mm*3+nn);
-		//	ofstream fout(fn,ios::out);
-		//	Output_VTK_header(&fout,nx,ny,nz);
-		//	fout<<fixed;
+			fn[6]=(char)((int)'0'+mm*3+nn);
+			ofstream fout(fn,ios::out);
+			Output_VTK_header(&fout,nx,ny,nz);
+			fout<<fixed;
 			for(k=0;k<nz;k++)
 				for(j=0;j<ny;j++)
 					for(i=0;i<nx;i++)
@@ -2114,11 +2144,11 @@ int Gelastic::Output_Stress(float **eta,int *gs) // Total stress field: includin
 								}
 						}
 
-		//				fout<<setprecision(9)<<miu[indx2]<<endl;
+						fout<<setprecision(9)<<miu[indx2]<<endl;
 	      				s_field[mm*3+nn][indx2]=miu[indx2]/100;
 	      			}
-//			fout.flush();
-//			fout.close();
+			fout.flush();
+			fout.close();
 		}
 	
 	fftw_free(miu_k);

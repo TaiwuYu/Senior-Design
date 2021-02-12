@@ -185,7 +185,7 @@ int GInitConfig::Init_HOMO(float *eta[])	// Ni30Pt20Ti50
 							eta[indx1][indx2]=0.0;
 							break;
 						case 7://X_Hf
-						//	eta[indx1][indx2]=0.27;
+						//	eta[indx1][indx2]=0.242;
 							eta[indx1][indx2]=0.0;
 							break;
 						case 8:
@@ -1090,7 +1090,7 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *co
 
 //	sprintf(filename,"stress_c1_v1_19.vtk");
 	//sprintf(filename,"stress_e4_T190_v1_32.vtk");
-/*	sprintf(filename,"stress_e4c_T200_v1_19.vtk");
+/*	sprintf(filename,"stress_p2_T200l_v1_16.vtk");
 //	sprintf(filename,"stress_test_T180_v1_19.vtk");
 //	sprintf(filename,"eta_v1_rand_18.vtk");
 	init_from_file(&eta[0][0],filename);
@@ -1099,21 +1099,21 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *co
 //	sprintf(filename,"stress_t_T180_v2_19.vtk");
 //	sprintf(filename,"stress_e4_T190_v2_32.vtk");
 //	sprintf(filename,"stress_test_T180_v2_19.vtk");
-	sprintf(filename,"stress_e4c_T200_v2_19.vtk");
+	sprintf(filename,"stress_p2_T200l_v2_16.vtk");
 	init_from_file(&eta[1][0],filename);
 //	sprintf(filename,"T160_e4r_v3_19.vtk");
 //	sprintf(filename,"stress_c1_v3_19.vtk");
 //	sprintf(filename,"stress_t_T180_v3_19.vtk");
 //	sprintf(filename,"stress_e4_T190_v3_32.vtk");
 //	sprintf(filename,"stress_test_T180_v3_19.vtk");
-	sprintf(filename,"stress_e4c_T200_v3_19.vtk");
+	sprintf(filename,"stress_p2_T200l_v3_16.vtk");
 	init_from_file(&eta[2][0],filename);
 //	sprintf(filename,"T160_e4r_v4_19.vtk");
 //	sprintf(filename,"stress_c1_v4_19.vtk");
 //	sprintf(filename,"stress_t_T180_v4_19.vtk");
 //	sprintf(filename,"stress_e4_T190_v4_32.vtk");
 //	sprintf(filename,"stress_test_T180_v4_19.vtk");
-	sprintf(filename,"stress_e4c_T200_v4_19.vtk");
+	sprintf(filename,"stress_p2_T200l_v4_16.vtk");
 	init_from_file(&eta[3][0],filename);
 */
 /*	sprintf(filename,"T160_c1_v5_08.vtk");
@@ -1174,20 +1174,20 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *co
 	//sprintf(filename,"stress_test3_v4_19.vtk");
 	//sprintf(filename,"tetra_v3_15.vtk");
 //	init_from_file(&eta[3][0],filename);
-	sprintf(filename,"eta_v1_rand3_12.vtk");
+//	sprintf(filename,"eta_v1_part2_03.vtk");
+/*	sprintf(filename,"input_v1_part5_02.vtk");
 	init_from_file(&eta[4][0],filename);
-
-	sprintf(filename,"eta_v2_rand3_12.vtk");
+	sprintf(filename,"input_v2_part5_02.vtk");
 	init_from_file(&eta[5][0],filename);
-	sprintf(filename,"eta_v3_rand3_12.vtk");
+	sprintf(filename,"input_v3_part5_02.vtk");
 	init_from_file(&eta[6][0],filename);
-	sprintf(filename,"eta_v4_rand3_12.vtk");
+	sprintf(filename,"input_v4_part5_02.vtk");
 	init_from_file(&eta[7][0],filename);
-	sprintf(filename,"eta_v5_rand3_12.vtk");
+	sprintf(filename,"input_v5_part5_02.vtk");
 	init_from_file(&eta[8][0],filename);
-	sprintf(filename,"eta_v6_rand3_12.vtk");
+	sprintf(filename,"input_v6_part5_02.vtk");
 	init_from_file(&eta[9][0],filename);
-
+*/
 //sprintf(filename,"M_p3_2_v4_49.vtk");
 //	sprintf(filename,"V4_input.vtk");
 //	sprintf(filename,"Small2_v4_99.vtk");
@@ -1206,14 +1206,17 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *co
 //	sprintf(filename,"%s",input_eta);
 	//init_from_file(*eta,filename);
 //	sprintf(filename,"Plate_v1.vtk");
-	sprintf(filename,"Ni_rand3_12.vtk");
+//	sprintf(filename,"Ni_part2_03.vtk");
+//	sprintf(filename,"input_Ni_part5_02.vtk");
+	sprintf(filename,"Ni_diss_18.vtk");
 //	sprintf(filename,"Ni_rand_12.vtk");
 //	sprintf(filename,"Hphase_large2_Ni_10.vtk");
 //	//sprintf(filename,"Hphase_1d_Ni_49.vtk");
 //	init_from_file(&eta[6][0],filename);
 	init_from_file(&conc1[0],filename);
-	sprintf(filename,"Hf_rand3_12.vtk");
-//	sprintf(filename,"Hf_diss_18.vtk");
+//	sprintf(filename,"input_Hf_part5_02.vtk");
+//	sprintf(filename,"Hf_part2_03.vtk");
+	sprintf(filename,"Hf_diss_18.vtk");
 //	sprintf(filename,"Hf_conc2_05.vtk");
 //	sprintf(filename,"Hphase_large2_Hf_10.vtk");
 //	init_from_file(&eta[7][0],filename);
@@ -1439,12 +1442,12 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 	long int indx2;
 	float tp1,tp2,tp3,t1,t2,t3,m1,m2,m3;
 
-	srand(120);
+	srand(10);
 
 	//srand(0);
 
 	Init_HOMO(eta);
-
+/*
 		for(i=0;i<nx;i++)
 			for(j=0;j<ny;j++)
 				for(k=0;k<nz;k++)		
@@ -1457,6 +1460,7 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 						eta[7][indx2]=0.26;//x-Hf
 }
 }
+*/
 /*
 else if((k>=nz/2)&&(k<=3*nz/4))
 {
@@ -1550,26 +1554,26 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 }
 */
 //	For long time particle with {311} habit
-/*
+
 	cout<<"Generation of H-phase particles with {311} habit plane."<<endl;
 //	ix_old=0;
 //	iy_old=0;
 //	iz_old=0;
 	for(ip=0;ip<(int)a[0];ip++)
 	{
-//       		iv=rand()%6;
-		iv=0;
+       		iv=rand()%6;
+//		iv=0;
 	//iv=0;
 //		ih=rand()%2;
 //		ih=0;
 
-//		ix=rand()%nx;
-//		iy=rand()%ny;
-//		iz=rand()%nz;
+		ix=rand()%nx;
+		iy=rand()%ny;
+		iz=rand()%nz;
 					//if((ix-ix_old)*(ix-ix_old)+(iy-iy_old)*(iy-iy_old)+(iz-iz_old)*(iz-iz_old)<=a[1]*a[1])
 					//	continue;
 
-		ix=iy=iz=nx/2;
+//		ix=iy=iz=nx/2;
 
 		for(i=0;i<nx;i++)
 			for(j=0;j<ny;j++)
@@ -1599,8 +1603,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							//if(fabs(tp2)<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;//X_Ni
-								eta[7][indx2]=0.28;//X_Hf
+								eta[6][indx2]=0.59;//X_Ni
+								eta[7][indx2]=0.29;//X_Hf
 							}
 						}
 						else
@@ -1610,8 +1614,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							//if(fabs(tp2)<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						break;
@@ -1621,8 +1625,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(0.9045)+tp2*(0.3015)+tp3*(0.3015))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						else
@@ -1630,8 +1634,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(0.9045)+tp2*(-0.3015)+tp3*(-0.3015))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						break;
@@ -1642,8 +1646,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(0.3015)+tp2*(0.9045)+tp3*(-0.3015))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						else
@@ -1651,8 +1655,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(-0.3015)+tp2*(0.9045)+tp3*(0.3015))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						break;
@@ -1662,8 +1666,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(0.3015)+tp2*(0.9045)+tp3*(0.3015))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						else
@@ -1671,8 +1675,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(-0.3015)+tp2*(0.9045)+tp3*(-0.3015))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						break;
@@ -1682,8 +1686,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(0.3015)+tp2*(-0.3015)+tp3*(0.9045))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						else
@@ -1691,8 +1695,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(-0.3015)+tp2*(0.3015)+tp3*(0.9045))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						break;
@@ -1702,8 +1706,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(0.3015)+tp2*(0.3015)+tp3*(0.9045))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						else
@@ -1711,8 +1715,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							if(fabs(tp1*(-0.3015)+tp2*(-0.3015)+tp3*(0.9045))<=a[2]/2.0)
 							{
 								eta[iv][indx2]=1;
-								eta[6][indx2]=0.54;
-								eta[7][indx2]=0.28;
+								eta[6][indx2]=0.59;
+								eta[7][indx2]=0.29;
 							}
 						}
 						break;
@@ -1724,7 +1728,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 				   }//end of space choosing
 
 				   }//end of particle number
-*/
+
 return 0;
 }
  
@@ -2049,13 +2053,13 @@ fp=fopen(filename,"r");
 			fscanf(fp,"DIMENSIONS %d %d %d\n",&fnx,&fny,&fnz);
 			for(i=0;i<5;i++)
 				fgets(ignore,40,fp);//ignoring 5 lines
-			if( (nx!=fnx) | (ny!=fny) | (nz!=fnz) )
+			if( (nx!=(fnx)) | (ny!=(fny)) | (nz!=(fnz)) )
 				{fprintf(stderr,"#Error:Input file size (%d,%d,%d) is different from the expected size (%d,%d,%d)\n",fnx,fny,fnz,nx,ny,nz);exit(0);}
 for(x_k=0; x_k<nz; x_k++)
 	for(x_j=0; x_j<ny; x_j++)
 		for(x_i=0; x_i<nx; x_i++)
 			//fscanf(fp,"%lf\n",&tpr[x_i*nx*ny+x_j*ny+x_k]);
-			fscanf(fp,"%f",&tpr[x_i*ny*nz+x_j*nz+x_k]);
+			fscanf(fp,"%f",&tpr[(x_i)*ny*nz+(x_j)*nz+(x_k)]);
                          printf("Input from user set succeed.\n");
 		}
 		else

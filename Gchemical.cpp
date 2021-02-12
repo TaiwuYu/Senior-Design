@@ -333,11 +333,11 @@ int Gchemical::Miu_P246(float* eta[],float* d_eta[],int *gs, float *conc1,float 
 						continue;
 	//				x_Ni=conc1[indx2]-0.0685;
 			//		x_Pt=conc2[indx2]-0.042;
-					x_Ni=conc1[indx2]-0.0685;
-	//				x_Ni=0.503;
-				x_Pt=conc2[indx2]-0.042;
+			//		x_Ni=conc1[indx2]-0.0682;
+					x_Ni=0.503;
+			  //              x_Pt=conc2[indx2]-0.042;
 	//				x_Pt=conc2[indx2]-0.07;
-	//				x_Pt=0.2;
+					x_Pt=0.2;
 			//		x_Ni=0.50;
 			//		x_Pt=0.19;
 					if(x_Ni<0.5)
