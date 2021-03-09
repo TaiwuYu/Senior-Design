@@ -255,8 +255,8 @@ int Ggradient::Miu_ISO_P7(float* eta[],float* d_eta[],int *gs)
 						zm=(eta[indx1])[indx2];
 						
 						indx2=index2(i,j,k);
-                                                if(v1>11)
-						continue;
+                             //                   if(v1>11)
+			//			continue;
 				//		if(v1>11)
 				//			d_eta[v1][indx2]-=0.001*kappa[0]*(xp+xm+yp+ym+zp+zm-6*temp);
 /*				if(v1==6)

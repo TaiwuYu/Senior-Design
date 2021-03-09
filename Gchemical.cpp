@@ -333,11 +333,12 @@ int Gchemical::Miu_P246(float* eta[],float* d_eta[],int *gs, float *conc1,float 
 						continue;
 	//				x_Ni=conc1[indx2]-0.0685;
 			//		x_Pt=conc2[indx2]-0.042;
-			//		x_Ni=conc1[indx2]-0.0682;
-					x_Ni=0.503;
-			  //              x_Pt=conc2[indx2]-0.042;
-	//				x_Pt=conc2[indx2]-0.07;
-					x_Pt=0.2;
+			//		x_Ni=conc1[indx2]-0.067;
+					x_Ni=conc1[indx2];
+				//	x_Ni=0.503;
+		//	                x_Pt=conc2[indx2]-0.042;
+					x_Pt=conc2[indx2];
+		//			x_Pt=0.2;
 			//		x_Ni=0.50;
 			//		x_Pt=0.19;
 					if(x_Ni<0.5)
@@ -378,7 +379,7 @@ int Gchemical::Miu_P246(float* eta[],float* d_eta[],int *gs, float *conc1,float 
              // (d_eta[v1])[indx2] = e1*(a[1]-11.74*e1*e1+17.39*temp*temp);
 //              (d_eta[v1])[indx2] = a[0]*e1*(a[1]-13.93*e1*e1+16.30*temp*temp);
 //              (d_eta[v1])[indx2] = a[0]*e1*(a[1]*(a[2]-(7541.5-15900*x_Ni+1750*x_Pt))-13.93*e1*e1+16.30*temp*temp);
-              (d_eta[v1])[indx2] = a[0]*e1*(a[1]*(a[2]-(7779.5-15900*x_Ni+1750*x_Pt))-1.8213*e1*e1+2.1343*temp*temp);
+              (d_eta[v1])[indx2] = a[0]*e1*(0.0094*(a[2]-(7779.5-15900*x_Ni+1750*x_Pt))-1.8213*e1*e1+2.1343*temp*temp);
              // (d_eta[v1])[indx2] = a[0]*e1*(a[1]*(a[2]-(7779.5-15900*eta[10][indx2]+1750*eta[11][indx2]))-1.8213*e1*e1+2.1343*temp*temp);
              // (d_eta[v1])[indx2] = e1*(3.08-12.8*e1*e1+12.6*temp*temp);
             //  (d_eta[v1])[indx2] = e1*(0.1-12.8*e1*e1+12.6*temp*temp);

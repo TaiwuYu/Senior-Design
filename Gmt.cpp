@@ -476,7 +476,8 @@ int Gmt::Evolution_RK2()
 		return 2;
 	}
 
-//        float **temp,s_tp[3][3]={{(float)1.0,0.0,0},{0.0,0.0,0},{0,0,0}};
+		cout<<"Evolution starts!"<<endl;
+ //       float **temp,s_tp[3][3]={{(float)1.0,0.0,0},{0.0,0.0,0},{0,0,0}};
 	float **temp,e_tp[3][3]={{(float)0.0,0,0},{0,1,0},{0,0,0}};
 	int t=0;
 	
@@ -658,20 +659,20 @@ int Gmt::Evolution_RK2()
 		if(t%(total_step/output_step)==0)
 		{
 	//	       elas.UpdateStrain(e_tp);
-      	//	      elas.UpdateStress(s_tp);
+      //		      elas.UpdateStress(s_tp);
 //		       chem.UpdateT(chem_a);
 		  if (t<=total_step/2)
 		      { chem.UpdateT(chem_a);}
-      		 //    elas.UpdateStress(s_tp);
+      		//  {   elas.UpdateStress(s_tp);}
 		       else
 		      { 
 		      chem.UpdateT2(chem_a);
-      		//      elas.UpdateStress2(s_tp);
+      		  //    elas.UpdateStress2(s_tp);
 		       }
 
 			Output_eta(output_step);
-	//	elas.Output_Stress(eta_old,gs);
-	//	        elas.Output_Strain(eta_old,gs,output_step);
+//		elas.Output_Stress(eta_old,gs);
+//		        elas.Output_Strain(eta_old,gs,output_step);
 			cout<<"t = "<<t<<endl;
 		}
 
@@ -779,7 +780,7 @@ int Gmt::Evolution_Spectrum()
 								else
 								{
 									M=M2;
-									kap=5*kappa[0];
+									kap=10*kappa[0];
 								}
 
 								eta_new_k[indx1][indx2][0]=(eta_old_k[indx1][indx2][0]*(1-0*M*time_step*g_sqr[indx2]*g_sqr[indx2]*kap)-M*time_step*d_eta_k[indx1][indx2][0]*g_sqr[indx2])
@@ -919,19 +920,38 @@ int Gmt::Output_eta(int out)
 	sprintf(f3,"ther_c1_T7r_sc_v4_%02d.vtk",num);
 */
 
-        sprintf(f0,"MT_v1_%02d.vtk",num);
-	sprintf(f1,"MT_v2_%02d.vtk",num);
-	sprintf(f2,"MT_v3_%02d.vtk",num);
-	sprintf(f3,"MT_v4_%02d.vtk",num);
+        sprintf(f0,"T125_conc3_v1_%02d.vtk",num);
+	sprintf(f1,"T125_conc3_v2_%02d.vtk",num);
+	sprintf(f2,"T125_conc3_v3_%02d.vtk",num);
+	sprintf(f3,"T125_conc3_v4_%02d.vtk",num);
 
-/*
-        sprintf(f0,"T150_e12s_v1_%02d.vtk",num);
-	sprintf(f1,"T150_e12s_v2_%02d.vtk",num);
-	sprintf(f2,"T150_e12s_v3_%02d.vtk",num);
-	sprintf(f3,"T150_e12s_v4_%02d.vtk",num);
+/* 
+        sprintf(f4,"T140_part5_2_v5_%02d.vtk",num);
+	sprintf(f5,"T140_part5_2_v6_%02d.vtk",num);
+	sprintf(f6,"T140_part5_2_v7_%02d.vtk",num);
+	sprintf(f7,"T140_part5_2_v8_%02d.vtk",num);
+        sprintf(f8,"T140_part5_2_v9_%02d.vtk",num);
+	sprintf(f9,"T140_part5_2_v10_%02d.vtk",num);
+	sprintf(f10,"T140_part5_2_v11_%02d.vtk",num);
+	sprintf(f11,"T140_part5_2_v12_%02d.vtk",num);
 */
 /*
+        sprintf(f0,"T135_larg2_new_v1_%02d.vtk",num);
+	sprintf(f1,"T135_larg2_new_v2_%02d.vtk",num);
+	sprintf(f2,"T135_larg2_new_v3_%02d.vtk",num);
+	sprintf(f3,"T135_larg2_new_v4_%02d.vtk",num);
+*/
+/*        sprintf(f4,"T150_single2_12_v5_%02d.vtk",num);
+	sprintf(f5,"T150_single2_12_v6_%02d.vtk",num);
+	sprintf(f6,"T150_single2_12_v7_%02d.vtk",num);
+	sprintf(f7,"T150_single2_12_v8_%02d.vtk",num);
+        sprintf(f8,"T150_single2_12_v9_%02d.vtk",num);
+	sprintf(f9,"T150_single2_12_v10_%02d.vtk",num);
+	sprintf(f10,"T150_single2_12_v11_%02d.vtk",num);
+	sprintf(f11,"T150_single2_12_v12_%02d.vtk",num);
+*/
 
+/*
 	sprintf(f4,"T150_e12s_v5_%02d.vtk",num);
 	sprintf(f5,"T150_e12s_v6_%02d.vtk",num);
 	sprintf(f6,"T150_e12s_v7_%02d.vtk",num);
@@ -943,16 +963,16 @@ int Gmt::Output_eta(int out)
 */
 //
 /*
-	sprintf(f0,"input_v1_part5_%02d.vtk",num);
-	sprintf(f1,"input_v2_part5_%02d.vtk",num);
-	sprintf(f2,"input_v3_part5_%02d.vtk",num);
-	sprintf(f3,"input_v4_part5_%02d.vtk",num);
+	sprintf(f0,"input_v1_part6_%02d.vtk",num);
+	sprintf(f1,"input_v2_part6_%02d.vtk",num);
+	sprintf(f2,"input_v3_part6_%02d.vtk",num);
+	sprintf(f3,"input_v4_part6_%02d.vtk",num);
 
-	sprintf(f4,"input_v5_part5_%02d.vtk",num);
-	sprintf(f5,"input_v6_part5_%02d.vtk",num);
+	sprintf(f4,"input_v5_part6_%02d.vtk",num);
+	sprintf(f5,"input_v6_part6_%02d.vtk",num);
 //
-        sprintf(f6,"input_Ni_part5_%02d.vtk",num);
-        sprintf(f7,"input_Hf_part5_%02d.vtk",num);
+        sprintf(f6,"input_Ni_part6_%02d.vtk",num);
+        sprintf(f7,"input_Hf_part6_%02d.vtk",num);
 */
 //	sprintf(f7,"Hphase_two3_Hf_%02d.vtk",num);
 	
@@ -976,12 +996,13 @@ int Gmt::Output_eta(int out)
 	ofstream v1_out(f1,ios::out);
 	ofstream v2_out(f2,ios::out);
 	ofstream v3_out(f3,ios::out);
-/*	ofstream v4_out(f4,ios::out);
+
+/*
+	ofstream v4_out(f4,ios::out);
 	ofstream v5_out(f5,ios::out);
 	ofstream v6_out(f6,ios::out);
 	ofstream v7_out(f7,ios::out);
-*/
-/*
+
 	ofstream v8_out(f8,ios::out);
 	ofstream v9_out(f9,ios::out);
 	ofstream v10_out(f10,ios::out);
@@ -1006,28 +1027,31 @@ int Gmt::Output_eta(int out)
 //	ofstream c_out("Concentrations.txt",ios::app);
 
 //	Output_VTK_header(&fout,nx,ny,nz*nv);
-	Output_VTK_header(&v0_out,nx+2,ny+2,nz+2);
-	Output_VTK_header(&v1_out,nx+2,ny+2,nz+2);
-	Output_VTK_header(&v2_out,nx+2,ny+2,nz+2);
-	Output_VTK_header(&v3_out,nx+2,ny+2,nz+2);
-/*	Output_VTK_header(&v4_out,nx,ny,nz);	
-	Output_VTK_header(&v5_out,nx,ny,nz);
 
-        Output_VTK_header(&v6_out,nx,ny,nz);
-	Output_VTK_header(&v7_out,nx,ny,nz);
-*/
+        Output_VTK_header(&v0_out,nx,ny,nz);
+	Output_VTK_header(&v1_out,nx,ny,nz);
+	Output_VTK_header(&v2_out,nx,ny,nz);
+	Output_VTK_header(&v3_out,nx,ny,nz);
+
 /*
-	Output_VTK_header(&v8_out,nx,ny,nz);
-	Output_VTK_header(&v9_out,nx,ny,nz);
-	Output_VTK_header(&v10_out,nx,ny,nz);
-	Output_VTK_header(&v11_out,nx,ny,nz);
+	Output_VTK_header(&v4_out,nx+2,ny+2,nz+2);	
+	Output_VTK_header(&v5_out,nx+2,ny+2,nz+2);
+
+        Output_VTK_header(&v6_out,nx+2,ny+2,nz+2);
+	Output_VTK_header(&v7_out,nx+2,ny+2,nz+2);
+
+
+	Output_VTK_header(&v8_out,nx+2,ny+2,nz+2);
+	Output_VTK_header(&v9_out,nx+2,ny+2,nz+2);
+	Output_VTK_header(&v10_out,nx+2,ny+2,nz+2);
+	Output_VTK_header(&v11_out,nx+2,ny+2,nz+2);
 */
 //	Output_VTK_header(&ft_out,nx,ny,nz);
 
 	for(g1=0;g1<ng;g1++)
 		for(v1=0;v1<nv;v1++)
 		{
-		if(v1>11)
+		if(v1>3)
 		continue;
 			indx1=index1(g1,v1);
 			for(k=0;k<nz;k++)
@@ -1043,12 +1067,18 @@ int Gmt::Output_eta(int out)
 					}
 		}
 
-	for(k=0;k<nz+2;k++)
+	for(k=0;k<nz;k++)
+		for(j=0;j<ny;j++)
+		    for(i=0;i<nx;i++)
+
+/*
+for(k=0;k<nz+2;k++)
 		for(j=0;j<ny+2;j++)
 			for(i=0;i<nx+2;i++)
+*/			
 			{
                         
-				indx3=index3(i,j,k);
+				indx2=index2(i,j,k);
 		//		vID=-1;
 		//		vmax=0;
 
@@ -1096,25 +1126,27 @@ int Gmt::Output_eta(int out)
 				v7_out<<eta_old[index1(0,7)][indx2]<<endl;
 			*/
 					
-				v0_out<<eta_out[index1(0,0)][indx3]<<endl;
-				v1_out<<eta_out[index1(0,1)][indx3]<<endl;
-				v2_out<<eta_out[index1(0,2)][indx3]<<endl;
-				v3_out<<eta_out[index1(0,3)][indx3]<<endl;
-   	/*	
-				v4_out<<eta_old[index1(0,4)][indx2]<<endl;
-				v5_out<<eta_old[index1(0,5)][indx2]<<endl;
+				v0_out<<eta_old[index1(0,0)][indx2]<<endl;
+				v1_out<<eta_old[index1(0,1)][indx2]<<endl;
+				v2_out<<eta_old[index1(0,2)][indx2]<<endl;
+				v3_out<<eta_old[index1(0,3)][indx2]<<endl;
+  
+  
+/*
+				v4_out<<eta_out[index1(0,4)][indx3]<<endl;
+				v5_out<<eta_out[index1(0,5)][indx3]<<endl;
 
-                                v6_out<<eta_old[index1(0,6)][indx2]<<endl;//x_Ni
+                                v6_out<<eta_out[index1(0,6)][indx3]<<endl;//x_Ni
 //                                v6_out<<conc1[indx2]<<endl;//x_Ni
-				v7_out<<eta_old[index1(0,7)][indx2]<<endl;//x_Hf
-*/
-/*				
+				v7_out<<eta_out[index1(0,7)][indx3]<<endl;//x_Hf
+
+				
 		
-				v8_out<<eta_old[index1(0,8)][indx2]<<endl;
-				v9_out<<eta_old[index1(0,9)][indx2]<<endl;
-				v10_out<<eta_old[index1(0,10)][indx2]<<endl;
-				v11_out<<eta_old[index1(0,11)][indx2]<<endl;
-   */                        
+				v8_out<<eta_out[index1(0,8)][indx3]<<endl;
+				v9_out<<eta_out[index1(0,9)][indx3]<<endl;
+				v10_out<<eta_out[index1(0,10)][indx3]<<endl;
+				v11_out<<eta_out[index1(0,11)][indx3]<<endl;
+  */                        
 //                          ft_out<<eta_total[indx2]<<endl;
 
 			}//end of space loop`
@@ -1148,7 +1180,9 @@ int Gmt::Output_eta(int out)
 	v2_out.close();
 	v3_out.flush();
 	v3_out.close();
-/*	v4_out.flush();
+
+/*
+	v4_out.flush();
 	v4_out.close();
 
 	v5_out.flush();
@@ -1158,8 +1192,8 @@ int Gmt::Output_eta(int out)
 	v6_out.close();
 	v7_out.flush();
 	v7_out.close();	
-*/
-/*
+
+
 	v8_out.flush();
 	v8_out.close();
 	v9_out.flush();
@@ -1307,8 +1341,6 @@ int Gmt::LangevinNoise(int time)
 				indx2=index2(i,j,k);
 				if(fabs(rc)>1E-5 && time<=cut_off_step2)
 				{
-			//		if(i%fluc_space==0 && j%fluc_space==0 && k%fluc_space==0)
-			//		{
 						for(v1=0;v1<nv;v1++)
 						{
                                   //            if(v1==4||v1==5)
@@ -1317,9 +1349,6 @@ int Gmt::LangevinNoise(int time)
 				//	      }
                                               //         continue;
 							tp=time_step*rc*Gauss_rand();
-					//		tp=time_step*rc*(unirand()-0.5);
-					 //    if(v1==0)
-					 //    cout<<"random noise="<<tp<<endl;
 							
 							if(nz>2) // 3D
 							{
@@ -1330,7 +1359,7 @@ int Gmt::LangevinNoise(int time)
 							//			{
 							//				indx22=index2(i+ii,j+jj,k+kk);
 											indx1=index1(0,v1);
-										if(v1==6||v1==7)
+										if(v1==6||v1==7)//concentration of Ni and Hf respectively
 									//	if(v1==6)
 										{
 											eta_old[index1(0,6)][indx2]+=0.04*tp;

@@ -181,11 +181,11 @@ int GInitConfig::Init_HOMO(float *eta[])	// Ni30Pt20Ti50
 							eta[indx1][indx2]=0;
 							break;
 						case 6://X_Ni
-					//		eta[indx1][indx2]=0.57;
+				//			eta[indx1][indx2]=0.57;
 							eta[indx1][indx2]=0.0;
 							break;
 						case 7://X_Hf
-						//	eta[indx1][indx2]=0.242;
+				//			eta[indx1][indx2]=0.22;
 							eta[indx1][indx2]=0.0;
 							break;
 						case 8:
@@ -1090,30 +1090,43 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *co
 
 //	sprintf(filename,"stress_c1_v1_19.vtk");
 	//sprintf(filename,"stress_e4_T190_v1_32.vtk");
-/*	sprintf(filename,"stress_p2_T200l_v1_16.vtk");
+//	sprintf(filename,"stress_p2_T200l_v1_16.vtk");
 //	sprintf(filename,"stress_test_T180_v1_19.vtk");
 //	sprintf(filename,"eta_v1_rand_18.vtk");
+	
+//	sprintf(filename,"input_files/T125_part5_v1_14_new.vtk");
+/*
+        sprintf(filename,"input_files/T110_part5_4v_v1_19_new.vtk");
+//	sprintf(filename,"input_files/T130_large2_v1_23_new.vtk");
 	init_from_file(&eta[0][0],filename);
 //	sprintf(filename,"T160_e4r_v2_19.vtk");
 //	sprintf(filename,"stress_c1_v2_19.vtk");
 //	sprintf(filename,"stress_t_T180_v2_19.vtk");
 //	sprintf(filename,"stress_e4_T190_v2_32.vtk");
 //	sprintf(filename,"stress_test_T180_v2_19.vtk");
-	sprintf(filename,"stress_p2_T200l_v2_16.vtk");
+//	sprintf(filename,"stress_p2_T200l_v2_16.vtk");
+//	sprintf(filename,"input_files/T130_large2_v2_23_new.vtk");
+//	sprintf(filename,"input_files/T125_part5_v2_14_new.vtk");
+	sprintf(filename,"input_files/T110_part5_4v_v2_19_new.vtk");
 	init_from_file(&eta[1][0],filename);
 //	sprintf(filename,"T160_e4r_v3_19.vtk");
 //	sprintf(filename,"stress_c1_v3_19.vtk");
 //	sprintf(filename,"stress_t_T180_v3_19.vtk");
 //	sprintf(filename,"stress_e4_T190_v3_32.vtk");
 //	sprintf(filename,"stress_test_T180_v3_19.vtk");
-	sprintf(filename,"stress_p2_T200l_v3_16.vtk");
+//	sprintf(filename,"input_files/T130_large2_v3_23_new.vtk");
+//	sprintf(filename,"input_files/T125_part5_v3_14_new.vtk");
+	sprintf(filename,"input_files/T110_part5_4v_v3_19_new.vtk");
+//	sprintf(filename,"stress_p2_T200l_v3_16.vtk");
 	init_from_file(&eta[2][0],filename);
-//	sprintf(filename,"T160_e4r_v4_19.vtk");
+//	sprintf(filename,"input_files/T125_part5_v4_14_new.vtk");
+	sprintf(filename,"input_files/T110_part5_4v_v4_19_new.vtk");
+//	sprintf(filename,"input_files/T130_large2_v4_23_new.vtk");
 //	sprintf(filename,"stress_c1_v4_19.vtk");
 //	sprintf(filename,"stress_t_T180_v4_19.vtk");
 //	sprintf(filename,"stress_e4_T190_v4_32.vtk");
 //	sprintf(filename,"stress_test_T180_v4_19.vtk");
-	sprintf(filename,"stress_p2_T200l_v4_16.vtk");
+//	sprintf(filename,"stress_p2_T200l_v4_16.vtk");
 	init_from_file(&eta[3][0],filename);
 */
 /*	sprintf(filename,"T160_c1_v5_08.vtk");
@@ -1175,17 +1188,23 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *co
 	//sprintf(filename,"tetra_v3_15.vtk");
 //	init_from_file(&eta[3][0],filename);
 //	sprintf(filename,"eta_v1_part2_03.vtk");
+//	sprintf(filename,"input_v1_large_01.vtk");
 /*	sprintf(filename,"input_v1_part5_02.vtk");
 	init_from_file(&eta[4][0],filename);
 	sprintf(filename,"input_v2_part5_02.vtk");
+//	sprintf(filename,"input_v2_large_01.vtk");
 	init_from_file(&eta[5][0],filename);
 	sprintf(filename,"input_v3_part5_02.vtk");
+//	sprintf(filename,"input_v3_large_01.vtk");
 	init_from_file(&eta[6][0],filename);
 	sprintf(filename,"input_v4_part5_02.vtk");
+//	sprintf(filename,"input_v4_large_01.vtk");
 	init_from_file(&eta[7][0],filename);
 	sprintf(filename,"input_v5_part5_02.vtk");
+//	sprintf(filename,"input_v5_large_01.vtk");
 	init_from_file(&eta[8][0],filename);
 	sprintf(filename,"input_v6_part5_02.vtk");
+//	sprintf(filename,"input_v6_large_01.vtk");
 	init_from_file(&eta[9][0],filename);
 */
 //sprintf(filename,"M_p3_2_v4_49.vtk");
@@ -1208,15 +1227,19 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *co
 //	sprintf(filename,"Plate_v1.vtk");
 //	sprintf(filename,"Ni_part2_03.vtk");
 //	sprintf(filename,"input_Ni_part5_02.vtk");
-	sprintf(filename,"Ni_diss_18.vtk");
+	sprintf(filename,"input_files/Ni3.vtk");
+//	sprintf(filename,"Ni_diss_18.vtk");
+//	sprintf(filename,"input_Ni_large_01.vtk");
 //	sprintf(filename,"Ni_rand_12.vtk");
 //	sprintf(filename,"Hphase_large2_Ni_10.vtk");
 //	//sprintf(filename,"Hphase_1d_Ni_49.vtk");
 //	init_from_file(&eta[6][0],filename);
 	init_from_file(&conc1[0],filename);
 //	sprintf(filename,"input_Hf_part5_02.vtk");
+	sprintf(filename,"input_files/Hf3.vtk");
 //	sprintf(filename,"Hf_part2_03.vtk");
-	sprintf(filename,"Hf_diss_18.vtk");
+//	sprintf(filename,"Hf_diss_18.vtk");
+//	sprintf(filename,"input_Hf_large_01.vtk");
 //	sprintf(filename,"Hf_conc2_05.vtk");
 //	sprintf(filename,"Hphase_large2_Hf_10.vtk");
 //	init_from_file(&eta[7][0],filename);
@@ -1295,6 +1318,7 @@ int GInitConfig::Init_USER(float *eta[],float a[],int *gs,float *conc1,float *co
 //	sprintf(filename,"hph_v6_01.vtk");
 	init_from_file(&eta[9][0],filename);
 */
+	cout<<"space has been input!!"<<endl;
 return 0;
 }
 
@@ -1442,9 +1466,9 @@ int GInitConfig::Init_Hphase(float *eta[],float a[],int *gs) // a[0]=number of p
 	long int indx2;
 	float tp1,tp2,tp3,t1,t2,t3,m1,m2,m3;
 
-	srand(10);
+//	srand(10);
 
-	//srand(0);
+	srand(time(NULL));
 
 	Init_HOMO(eta);
 /*
@@ -1570,7 +1594,8 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 		ix=rand()%nx;
 		iy=rand()%ny;
 		iz=rand()%nz;
-					//if((ix-ix_old)*(ix-ix_old)+(iy-iy_old)*(iy-iy_old)+(iz-iz_old)*(iz-iz_old)<=a[1]*a[1])
+
+//if((ix-ix_old)*(ix-ix_old)+(iy-iy_old)*(iy-iy_old)+(iz-iz_old)*(iz-iz_old)<=a[1]*a[1])
 					//	continue;
 
 //		ix=iy=iz=nx/2;
@@ -1604,7 +1629,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;//X_Ni
-								eta[7][indx2]=0.29;//X_Hf
+								eta[7][indx2]=0.27;//X_Hf
 							}
 						}
 						else
@@ -1615,7 +1640,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						break;
@@ -1626,7 +1651,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						else
@@ -1635,7 +1660,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						break;
@@ -1647,7 +1672,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						else
@@ -1656,7 +1681,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						break;
@@ -1667,7 +1692,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						else
@@ -1676,7 +1701,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						break;
@@ -1687,7 +1712,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						else
@@ -1696,7 +1721,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						break;
@@ -1707,7 +1732,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						else
@@ -1716,7 +1741,7 @@ else if((k>=nz/2)&&(k<=3*nz/4))
 							{
 								eta[iv][indx2]=1;
 								eta[6][indx2]=0.59;
-								eta[7][indx2]=0.29;
+								eta[7][indx2]=0.27;
 							}
 						}
 						break;
