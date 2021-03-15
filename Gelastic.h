@@ -83,6 +83,7 @@ public:
 
 	int Output_VTK_header(ofstream*,int,int,int);
         int UpdateStress(float s_applied[][3]);
+        int UpdateStress2(float s_applied[][3]);
 	int AppliedStress(float s_applied[][3]);
 	int AppliedStrain(float e_applied[][3]);
 	int UpdateStrain(float e_applied[][3]);

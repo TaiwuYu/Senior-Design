@@ -82,6 +82,7 @@ public:
 	
 	inline long int index1(int g1,int v1) { return g1*nv+v1; }
 	inline long int index2(int i,int j,int k) { return (i*ny+j)*nz+k; }
+	inline long int index3(int i,int j,int k) { return (i*(ny+2)+j)*(nz+2)+k; }
 
 public:
 	int ng,nv,nx,ny,nz; // number of grains/variants/x/y/z
